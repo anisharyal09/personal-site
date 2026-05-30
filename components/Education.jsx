@@ -1,176 +1,89 @@
-import React, { useState } from "react";
-import { Zap } from "lucide-react";
+import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import { GraduationCap, Lock, Unlock } from 'lucide-react';
 
 const educationData = [
   {
-    id: 1,
-    year: "2022",
-    title: "TENTH GRADED",
-    institution: "Gandaki E.B.S, Tamghas",
-    gpa: "3.70 GPA",
-    status: "COMPLETED",
+    year: '2022',
+    title: 'Tenth Grade',
+    institution: 'Gandaki E.B.S, Tamghas',
+    gpa: '3.70 GPA',
   },
   {
-    id: 2,
-    year: "2024",
-    title: "PLUS TWO (12)",
-    institution: "Kanti Sec. School, Butwal",
-    gpa: "3.84 GPA",
-    status: "COMPLETED",
+    year: '2024',
+    title: 'Plus Two (12)',
+    institution: 'Kanti Sec. School, Butwal',
+    gpa: '3.84 GPA',
   },
   {
-    id: 3,
-    year: "2024 - 2028",
-    title: (
-      <>
-        ELECTRONICS, COMMUNICATION <br className="hidden lg:block" />&
-        INFORMATION ENGINEERING
-      </>
-    ),
-    institution: "IOE, Pulchowk Campus",
-    gpa: "RUNNING",
-    status: "IN_PROGRESS",
+    year: '2024–2028',
+    title: 'BEng. Electronics, Communication & Information Engineering',
+    institution: 'IOE, Pulchowk Campus, TU',
+    gpa: 'Running',
   },
 ];
 
-const EducationCard = ({ data, index }) => {
-  const [isRevealed, setIsRevealed] = useState(false);
+function DecryptGPA({ value }) {
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    if (!revealed) return;
+    const timer = setTimeout(() => setRevealed(false), 9000);
+    return () => clearTimeout(timer);
+  }, [revealed]);
 
   return (
-    <div
-      className="relative group w-full md:max-w-xl lg:max-w-sm flex flex-col animate-fade-in-up"
-      style={{ animationDelay: `${index * 150}ms` }}
+    <button
+      onClick={() => setRevealed(!revealed)}
+      className={`relative overflow-hidden flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-mono transition-all duration-500 border ${revealed
+        ? 'bg-electric/10 border-electric/30 text-electric shadow-[0_0_15px_var(--color-electric-glow)]'
+        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+        }`}
+      title={revealed ? 'Hides in 9s' : 'Click to decrypt'}
     >
-      {/* Connector (Desktop only) */}
-      <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-px h-8 bg-gradient-to-b from-transparent to-cyan-500/50 hidden lg:block"></div>
-      <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 bg-cyan-500 rounded-full hidden lg:block shadow-[0_0_10px_#06b6d4]"></div>
-
-      {/* CARD BODY */}
-      <div className="relative h-full bg-black/40 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden hover:border-cyan-500/50 transition-all duration-500 group-hover:shadow-[0_0_30px_rgba(6,182,212,0.15)] flex flex-col">
-        {/* Header */}
-        <div className="bg-white/5 px-4 py-2 border-b border-white/5 flex justify-between items-center">
-          <div className="flex gap-1.5">
-            <div className="w-2 h-2 rounded-full bg-red-500/50"></div>
-            <div className="w-2 h-2 rounded-full bg-yellow-500/50"></div>
-            <div className="w-2 h-2 rounded-full bg-green-500/50"></div>
-          </div>
-          <span className="text-[10px] font-mono text-gray-500">
-            SYS_ID_{data.id.toString().padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 flex flex-col flex-grow relative">
-          <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
-
-          <h3 className="text-3xl font-bold text-white mb-2 tracking-tight z-10 font-mono">
-            {data.year}
-          </h3>
-          <h4 className="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-cyan-400 mb-4 leading-snug z-10 min-h-[3.5rem] flex items-center">
-            {data.title}
-          </h4>
-
-          <div className="mt-auto z-10">
-            <p className="text-gray-400 text-sm font-mono border-l-2 border-gray-700 pl-3 mb-6">
-              {data.institution}
-            </p>
-
-            {/* IMPLICIT SPOILER */}
-            <div
-              className="relative overflow-hidden rounded bg-black/40 border border-white/5 group-hover:border-white/10 transition-colors cursor-pointer select-none"
-              onClick={() => setIsRevealed(!isRevealed)}
-            >
-              {!isRevealed ? (
-                <div className="py-2 px-3 flex items-center justify-between group/spoiler hover:bg-white/5 transition-colors opacity-60 hover:opacity-100">
-                  <span className="text-[10px] text-gray-600 font-mono uppercase tracking-widest">
-                    [ View_Data ]
-                  </span>
-                  <span className="w-1.5 h-1.5 bg-gray-700 rounded-full group-hover/spoiler:bg-cyan-800 transition-colors"></span>
-                </div>
-              ) : (
-                <div className="py-2 px-3 bg-white/5 border-t border-white/10 relative animate-quick-fade-in">
-                  <div className="flex items-center justify-between font-mono">
-                    <span className="text-[10px] text-gray-500">DATA:</span>
-                    <span className="text-sm font-medium text-cyan-200/80 tracking-wider shadow-[0_0_15px_rgba(6,182,212,0.05)]">
-                      {data.gpa}
-                    </span>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+      {revealed ? <Unlock size={14} /> : <Lock size={14} />}
+      <span className={revealed ? 'animate-decrypt inline-block' : 'filter blur-sm select-none opacity-60 inline-block'}>
+        {revealed ? value : 'HIDDEN'}
+      </span>
+    </button>
   );
-};
+}
 
 export default function Education() {
   return (
-    <section className="relative w-full py-32">
-      {/* 1. TOP FADE */}
-      <div className="absolute top-0 left-0 w-full h-36 bg-gradient-to-b from-black/50 to-transparent z-20 pointer-events-none"></div>
+    <section className="relative" id="education">
+      <div className="section-container">
+        <h2 className="section-title">Education</h2>
 
-      {/* 2. CONTENT */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center">
-        {/* Header */}
-        <div className="text-center mb-12 md:mb-16 w-full animate-fade-in-up">
-          <div className="flex items-center justify-center gap-2 mb-4 opacity-70">
-            <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></span>
-            <span className="text-cyan-500 font-mono text-xs tracking-widest">
-              ./ROOT/USER/ACADEMICS
-            </span>
-            <span className="w-1.5 h-1.5 bg-cyan-500 rounded-full animate-pulse"></span>
-          </div>
+        <div className="relative pl-6 md:pl-8 border-l border-white/10 space-y-12 py-4">
+          {educationData.map((item, idx) => (
+            <motion.div
+              key={idx}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-50px" }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              className="relative"
+            >
+              {/* Timeline Dot */}
+              <div className="absolute -left-[31px] md:-left-[39px] top-1 flex items-center justify-center w-8 h-8 rounded-full bg-dark border border-white/20 text-electric">
+                <GraduationCap size={16} />
+              </div>
 
-          <h2 className="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
-            Education
-            </span>
-          </h2>
-
-          <div className="relative h-px w-full max-w-[200px] bg-gray-800 mx-auto overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent w-1/2 animate-shuttle"></div>
-          </div>
-        </div>
-
-        {/* Cards Grid */}
-        <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 w-full justify-center items-center lg:items-stretch">
-          {educationData.map((item, index) => (
-            <EducationCard key={item.id} data={item} index={index} />
+              <div className="flex flex-col md:flex-row md:items-start justify-between gap-6">
+                <div>
+                  <span className="font-mono text-xs text-electric mb-2 block">{item.year}</span>
+                  <h3 className="text-xl font-bold text-white mb-1">{item.title}</h3>
+                  <p className="text-gray-400">{item.institution}</p>
+                </div>
+                <div>
+                  <DecryptGPA value={item.gpa} />
+                </div>
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
-
-      {/* 3. BOTTOM FADE */}
-      <div className="absolute bottom-0 left-0 w-full h-36 bg-gradient-to-t from-black/50 to-transparent z-20 pointer-events-none"></div>
-
-      <style jsx>{`
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        @keyframes shuttle {
-          0% {
-            transform: translateX(-100%);
-          }
-          100% {
-            transform: translateX(200%);
-          }
-        }
-        .animate-fade-in-up {
-          animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .animate-shuttle {
-          animation: shuttle 3s cubic-bezier(0.4, 0, 0.2, 1) infinite;
-        }
-      `}</style>
     </section>
   );
 }

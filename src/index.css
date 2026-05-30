@@ -1,1 +1,151 @@
 @import "tailwindcss";
+
+/* 
+  Custom Theme Tokens & Premium Design System 
+*/
+@theme {
+  --color-dark: #0a0a0c;
+  --color-darker: #050505;
+  --color-electric: #00E5FF;
+  --color-electric-glow: rgba(0, 229, 255, 0.2);
+  --color-neon-purple: #B537F2;
+  
+  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-mono: 'Fira Code', monospace;
+}
+
+:root.light-mode-active {
+  --color-dark: #f8fafc; /* Lighter slate gray background */
+  --color-darker: #ffffff;
+  --color-electric: #0284c7; /* Darker blue for contrast */
+  --color-electric-glow: rgba(2, 132, 199, 0.2);
+  --color-neon-purple: #7e22ce;
+}
+
+:root.light-mode-active body {
+  color: #1e293b !important;
+  background-image: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08), transparent 70%);
+}
+
+:root.light-mode-active .text-white,
+:root.light-mode-active .text-gray-200,
+:root.light-mode-active .text-gray-300,
+:root.light-mode-active .text-gray-400 {
+  color: #334155 !important;
+}
+
+:root.light-mode-active .text-gray-500 {
+  color: #64748b !important;
+}
+
+:root.light-mode-active .bg-white\/5 {
+  background-color: rgba(0, 0, 0, 0.03) !important;
+}
+
+:root.light-mode-active .border-white\/5,
+:root.light-mode-active .border-white\/10,
+:root.light-mode-active .border-white\/20 {
+  border-color: rgba(0, 0, 0, 0.1) !important;
+}
+
+:root.light-mode-active .glass-panel {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+  border-color: rgba(0, 0, 0, 0.08) !important;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03) !important;
+}
+
+:root.light-mode-active .bg-black\/60 {
+  background-color: rgba(255, 255, 255, 0.8) !important;
+}
+
+:root.light-mode-active .bg-black\/40 {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+  
+  body {
+    background-color: var(--color-dark);
+    /* Subtle radial gradient for depth */
+    background-image: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05), transparent 70%);
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--color-electric);
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-xl;
+  }
+  
+  .glass-panel-hover {
+    @apply transition-all duration-300 hover:border-electric/50 hover:bg-white/10 hover:shadow-[0_0_20px_var(--color-electric-glow)];
+  }
+
+  .text-glow {
+    text-shadow: 0 0 15px var(--color-electric-glow);
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-electric to-neon-purple;
+  }
+}
+
+/* Animations */
+@keyframes decrypt {
+  0% { filter: blur(8px); opacity: 0; transform: translateY(5px); }
+  100% { filter: blur(0); opacity: 1; transform: translateY(0); }
+}
+
+.animate-decrypt {
+  animation: decrypt 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(400px); }
+}
+
+.animate-scan {
+  animation: scan 4s linear infinite;
+}
+
+/* Base utility for components */
+.section-container {
+  @apply max-w-5xl mx-auto px-6 py-24;
+}
+
+.section-title {
+  @apply text-3xl md:text-4xl font-bold tracking-tight mb-12 flex items-center gap-4;
+}
+
+.section-title::before {
+  content: '';
+  @apply block w-8 h-1 bg-gradient-to-r from-electric to-transparent rounded-full;
+}

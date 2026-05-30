@@ -1,230 +1,124 @@
-import React from "react";
-import { Zap, Activity, Video, Play, MonitorPlay } from "lucide-react";
+import React from 'react';
+import { motion } from 'framer-motion';
+import { PlayCircle } from 'lucide-react';
+
+const channels = [
+  {
+    name: 'eTechs',
+    type: 'Tech / Empowerment',
+    url: 'https://www.youtube.com/@empowermenttechspace',
+    icon: <div className="text-electric"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="2"></circle><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path></svg></div>,
+    featured: true,
+    videoId: 'HumllUTEzms',
+    title: 'The Digital Afterlife — What Happens to Your Digital Soul When You Die?',
+  },
+  {
+    name: 'Anish Echoes',
+    type: 'Music',
+    url: 'https://www.youtube.com/@anishechoes',
+    icon: <div className="text-neon-purple"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></div>,
+  },
+  {
+    name: 'ani',
+    type: 'Personal',
+    url: 'https://www.youtube.com/@anisharyal09',
+    icon: <div className="text-gray-400"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon></svg></div>,
+  },
+];
+
+const interests = ['Listening to Music', 'Travel', 'μControllers', 'Editing', 'ML'];
 
 export default function Extensions() {
-  const featuredVideoId = "HumllUTEzms";
-  const featuredVideoUrl = `https://youtu.be/${featuredVideoId}?si=pmdkyYahjVMmRY0T`;
-  const channelUrl = "https://www.youtube.com/@empowermenttechspace";
-
-  // YouTube thumbnail URL
-  const thumbnailUrl = `https://img.youtube.com/vi/${featuredVideoId}/maxresdefault.jpg`;
+  const featured = channels.find(c => c.featured);
 
   return (
-    <section className="relative w-full pt-24 pb-32 flex flex-col items-center">
-      {/* TOP FADE */}
-      <div className="absolute top-0 left-0 w-full h-36 bg-gradient-to-b from-black/50 to-transparent z-20 pointer-events-none"></div>
+    <section className="relative bg-white/[0.01]" id="extensions">
+      <div className="section-container">
+        <h2 className="section-title">Digital Self</h2>
 
-      {/* MAIN CONTENT (z-10) */}
-      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 flex flex-col items-center">
-        {/* --- HEADER --- */}
-        <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center gap-2 text-cyan-500 font-mono text-xs tracking-widest mb-3 uppercase">
-            <Activity size={14} />
-            <span>// SYSTEM: EXTENSION MODULES</span>
-          </div>
-          <h2 className="text-4xl lg:text-5xl font-bold text-white tracking-tight typewriter-text mb-3">
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-600">
-              Digital Extensions
-            </span>
-          </h2>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 
-          {/* separator line with shuttle animation */}
-          <div className="relative h-px w-full max-w-[200px] bg-gray-800 mt-3 mx-auto overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500 to-transparent w-1/2 animate-shuttle"></div>
-          </div>
-
-          <p className="text-gray-400 mt-4 max-w-xl">
-            A look at <b>unstructured interests</b>
-          </p>
-          {/* Cursor for Typewriter Effect */}
-          <span className="inline-block h-6 w-px bg-cyan-400 align-bottom animate-blink"></span>
-        </div>
-
-        {/* --- CONTENT LAYOUT (YouTube & Interests) --- */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 w-full max-w-6xl mt-8">
-          {/* === YOUTUBE & VIDEO CONTENT (2/3 width on desktop) === */}
-          <div className="lg:col-span-2 flex flex-col gap-6 animate-fade-in-up">
-            <h3 className="text-2xl font-bold text-white font-mono border-b border-white/5 pb-2 flex items-center gap-2">
-              <Play size={24} className="text-red-500 fill-red-500" />{" "}
-              Empowerment Tech Space
-            </h3>
-
-            <p className="text-gray-400 text-sm">
-              As part of the <b>Empowerment Tech Space (eTechs)</b> channel,
-              videos are created focusing on digital empowerment, ethical
-              technology use, and the intersection of life and code. Featured
-              below is the latest video log.
-            </p>
-
-            {/* Featured Video Link Box */}
-            <a
-              href={featuredVideoUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative w-full aspect-video bg-gray-900/50 border border-cyan-500/20 rounded-xl overflow-hidden flex flex-col items-center justify-center p-8 text-center group transition-shadow hover:shadow-[0_0_30px_rgba(6,182,212,0.15)]"
-            >
-              {/* 1. BLURRED THUMBNAIL BACKGROUND LAYER */}
-              <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
-                style={{ backgroundImage: `url(${thumbnailUrl})` }}
+          {/* Channels List */}
+          <div className="space-y-4">
+            <h3 className="font-mono text-sm text-gray-400 mb-6 uppercase tracking-widest border-b border-white/10 pb-2">YouTube Networks</h3>
+            {channels.map((c, idx) => (
+              <motion.a
+                key={c.name}
+                href={c.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.4, delay: idx * 0.1 }}
+                className="group flex items-center justify-between p-4 rounded-2xl glass-panel glass-panel-hover"
               >
-                {/* Dark/Blurred Overlay for Readability - REMOVED on hover */}
-                <div className="absolute inset-0 backdrop-blur-md bg-black/60 transition-opacity duration-500 group-hover:opacity-0"></div>
-              </div>
-
-              {/* 2. FOREGROUND CONTENT (z-10) - FADES OUT ON HOVER */}
-              <div className="relative z-10 flex flex-col items-center transition-opacity duration-500 group-hover:opacity-0">
-                <MonitorPlay
-                  size={48}
-                  className="text-cyan-400 group-hover:text-cyan-200 transition-colors"
-                />
-                <h4 className="text-xl font-bold text-white mt-4 font-mono">
-                  The Digital Afterlife - What Happens to Your Digital Soul When
-                  You Die?
-                </h4>
-                <p className="text-sm text-gray-300">(Click to watch)</p>
-              </div>
-
-              {/* 3. ABSOLUTE BUTTONS (z-20) - Keep Play Button hidden until hover */}
-              <div className="absolute bottom-4 right-4 flex gap-2 z-20">
-                {/* Play Button - Only appears on hover */}
-                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="mb-30 ml-45 w-20 h-20 bg-red-600/90 rounded-full flex items-center justify-center scale-75 group-hover:scale-100 transition-transform duration-300">
-                    <Play size={32} className="text-white fill-white ml-1" />
+                <div className="flex items-center gap-4">
+                  <div className="p-2 rounded-xl bg-white/5 border border-white/10 group-hover:scale-110 transition-transform">
+                    {c.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-white font-medium group-hover:text-electric transition-colors">{c.name}</h4>
+                    <p className="text-xs text-gray-400">{c.type}</p>
                   </div>
                 </div>
+                <div className="text-gray-500 group-hover:text-white transition-colors">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+                </div>
+              </motion.a>
+            ))}
+          </div>
 
-                {/* Original Buttons  */}
-                <span className="hover:bg-gray-900 hover:text-white px-4 py-2 bg-red-600/80 text-white rounded-lg font-mono text-xs uppercase transition-opacity duration-300 group-hover:opacity-50">
-                  Featured Video
-                </span>
+          {/* Featured Video & Interests */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col justify-between"
+          >
+            {featured && (
+              <div className="mb-8">
+                <h3 className="font-mono text-sm text-gray-400 mb-6 tracking-widest border-b border-white/10 pb-2">Latest Upload (eTechs)</h3>
                 <a
-                  href={channelUrl}
+                  href={`https://youtu.be/${featured.videoId}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2 bg-gray-700/80 hover:bg-red-900 hover:text-white text-white rounded-lg font-mono text-xs uppercase transition-opacity duration-300 group-hover:opacity-50"
-                  onClick={(e) => e.stopPropagation()}
+                  className="block relative rounded-2xl overflow-hidden glass-panel group aspect-video"
                 >
-                  View Channel
+                  <img
+                    src={`https://img.youtube.com/vi/${featured.videoId}/maxresdefault.jpg`}
+                    alt={featured.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-dark/60 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <PlayCircle size={64} className="text-white mb-2" />
+                    <span className="text-white font-medium px-6 text-center">{featured.title}</span>
+                  </div>
                 </a>
               </div>
-            </a>
+            )}
 
-            <p className="text-gray-500 text-xs font-mono">
-              // Latest log date: 12/02/2025
-            </p>
-          </div>
-
-          {/* === PERSONAL INTERESTS (1/3 width on desktop) === */}
-          <div
-            className="lg:col-span-1 flex flex-col gap-4 animate-fade-in-up"
-            style={{ animationDelay: "300ms" }}
-          >
-            <h3 className="text-2xl font-bold text-white font-mono border-b border-white/5 pb-2 flex items-center gap-2">
-              <Zap size={24} className="text-yellow-500 fill-yellow-500" />{" "}
-              Interests
-            </h3>
-
-            <ul className="text-gray-300 flex flex-col gap-3 p-4 bg-gray-950/70 border border-cyan-500/10 rounded-lg">
-              <li className="font-mono text-sm border-l-2 border-cyan-400 pl-3">
-                Listening to Music
-              </li>
-              <li className="font-mono text-sm border-l-2 border-cyan-400 pl-3">
-                Travelling
-              </li>
-              <li className="font-mono text-sm border-l-2 border-cyan-400 pl-3">
-                Microcontroller Stuff
-              </li>
-              <li className="font-mono text-sm border-l-2 border-cyan-400 pl-3">
-                Editing
-              </li>
-              <li className="font-mono text-sm border-l-2 border-cyan-400 pl-3">
-                More{" "}
-                <span className="typing-dots opacity-18">
-                  {[0, 0.5, 0.9].map((delay, i) => (
-                    <span
-                      key={i}
-                      className="dot"
-                      style={{ animationDelay: `${delay}s` }}
-                    >
-                      .
-                    </span>
-                  ))}
-                </span>
-              </li>
-            </ul>
-            <p className="text-gray-500 text-xs mt-2 font-mono">
-              // collected from hobbies and off-hours activity log.
-            </p>
-          </div>
+            <div>
+              <h3 className="font-mono text-sm text-gray-400 mb-6 uppercase tracking-widest border-b border-white/10 pb-2">Current Interests</h3>
+              <div className="flex flex-wrap gap-3">
+                {interests.map((interest, idx) => (
+                  <motion.span
+                    key={interest}
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: idx * 0.1 }}
+                    className="px-4 py-2 rounded-full text-sm font-medium bg-white/5 border border-white/10 text-gray-300 hover:bg-white/10 hover:text-white transition-colors cursor-default"
+                  >
+                    {interest}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </motion.div>
         </div>
       </div>
-
-      {/* --- FOOTER STATUS --- */}
-      <div
-        className="relative z-20 mt-12 animate-fade-in-up flex justify-center w-full"
-        style={{ animationDelay: "400ms" }}
-      >
-        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-colors cursor-default">
-          <Zap size={12} className="text-green-400 animate-pulse" />
-          <span className="text-[10px] font-mono text-gray-400 tracking-widest uppercase">
-            STATUS: EXPLORING
-            {/* The Dynamic Typing Dots */}
-            <span className="typing-dots">
-              {[0, 0.3, 0.6].map((delay, i) => (
-                <span
-                  key={i}
-                  className="dot"
-                  style={{ animationDelay: `${delay}s` }}
-                >
-                  .
-                </span>
-              ))}
-            </span>
-          </span>
-        </div>
-      </div>
-
-      <style>{`
-        /* 1. KEYFRAME DEFINITIONS */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-        @keyframes typing-dots {
-            0%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-        @keyframes shuttle {
-          0% { transform: translateX(-100%); }
-          100% { transform: translateX(200%); }
-        }
-
-        /* 2. APPLY ANIMATIONS */
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-        .animate-blink {
-            animation: blink 1s step-end infinite;
-        }
-        .animate-shuttle {
-            animation: shuttle 3s linear infinite; /* Adjust timing as needed */
-        }
-        
-        .typing-dots .dot {
-            opacity: 0; /* Start hidden */
-            animation: typing-dots 1.8s infinite; /* Adjusted duration for smoother look */
-        }
-      `}</style>
     </section>
   );
 }

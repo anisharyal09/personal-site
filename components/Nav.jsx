@@ -1,132 +1,130 @@
-import React, { useState, useEffect } from "react";
-import { Menu, X, Cpu, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
 
-export default function Header() {
-  const [open, setOpen] = useState(false);
+export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
+  const location = useLocation();
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+    // Real implementation would apply a '.light' class to the body or tailwind wrapper.
+    document.documentElement.classList.toggle('light-mode-active');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Lock body scroll when menu is open
-  useEffect(() => {
-    if (open) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "unset";
-    }
-  }, [open]);
-
-  const navItems = ["Home", "Education", "Skills", "Analysis", "Extensions"];
+  const navLinks = [
+    { label: 'Stack', href: '#stack', isHash: true },
+    { label: 'Projects', href: '#projects', isHash: true },
+    { label: 'Education', href: '#education', isHash: true },
+    { label: 'Analysis', href: '/analysis', isHash: false },
+    { label: 'Content', href: '#extensions', isHash: true },
+    { label: 'Contact', href: '#contact', isHash: true },
+  ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 border-b ${
-        open
-          ? "bg-black border-white/5"
-          : scrolled
-          ? "bg-[#0a0a0a]/90 backdrop-blur-md border-cyan-900/30 py-4 shadow-lg"
-          : "bg-transparent border-transparent py-4"
-      }`}
+    <motion.header
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-4' : 'py-6'
+        }`}
     >
-      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 lg:px-12 relative z-50">
-        {/* --- LOGO --- */}
-        <Link
-          to="/"
-          className="flex items-center gap-3 cursor-pointer group"
-          onClick={() => setOpen(false)}
+      <div className="max-w-6xl mx-auto px-6">
+        <div
+          className={`flex items-center justify-between rounded-2xl px-6 py-3 transition-all duration-300 ${scrolled ? 'glass-panel' : 'bg-transparent'
+            }`}
         >
-          <div className="relative flex items-center justify-center w-10 h-10 bg-cyan-950/30 border border-cyan-500/30 rounded-lg group-hover:border-cyan-400 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.3)] transition-all duration-300">
-            <Cpu size={20} className="text-cyan-400" />
-            <div className="absolute -top-px -left-px w-2 h-2 border-t border-l border-cyan-500 opacity-50"></div>
-            <div className="absolute -bottom-px -right-px w-2 h-2 border-b border-r border-cyan-500 opacity-50"></div>
-          </div>
-
-          <div className="flex flex-col">
-            <span className="text-white font-bold tracking-wide text-sm font-mono group-hover:text-cyan-400 transition-colors">
-              ARYAL<span className="text-cyan-500">_</span>SYSTEMS
+          {/* Logo */}
+          <a href="#" className="flex items-center gap-1 group">
+            <span className="font-mono text-sm md:text-base font-bold tracking-tight text-white group-hover:text-glow transition-all duration-300">
+              ANISH SYS.
             </span>
-            <span className="text-[9px] m-0.3 text-cyan-500 font-mono">@anisharyal09</span>
-          </div>
-        </Link>
+            <span className="font-mono text-electric text-sm md:text-base opacity-70 group-hover:opacity-100 transition-opacity">@</span>
+            <span className="font-mono text-xs md:text-sm text-gray-400 group-hover:text-gray-200 transition-colors">
+              anisharyal09
+            </span>
+            <span className="w-1.5 h-4 bg-electric ml-1 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></span>
+          </a>
 
-        {/* --- DESKTOP NAV --- */}
-        <div className="hidden lg:flex w-full absolute inset-x-0 justify-center pointer-events-none">
-          <nav className="group flex items-center bg-[#1a1a1a]/70 backdrop-blur-sm p-2 rounded-full border border-white/5 shadow-[0_0_20px_rgba(6,182,212,0.4)] pointer-events-auto transition-all duration-300">
-            {navItems.map((item) => (
-              <Link
-                key={item}
-                to={"/" + item.toLowerCase()}
-                className="px-4 py-2 mx-1 text-gray-300 text-sm font-mono tracking-wide rounded-full hover:bg-cyan-500/10 hover:text-white transition-colors duration-150 cursor-pointer"
-              >
-                {item}
-              </Link>
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-6">
+            {navLinks.map((link) => (
+              link.isHash ? (
+                <a
+                  key={link.label}
+                  href={location.pathname === '/' ? link.href : `/${link.href}`}
+                  className="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition-all duration-300"
+                >
+                  {link.label}
+                </a>
+              ) : (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="text-sm font-medium text-gray-400 hover:text-white hover:text-glow transition-all duration-300"
+                >
+                  {link.label}
+                </Link>
+              )
             ))}
+
+            <button
+              onClick={toggleTheme}
+              className="ml-2 w-10 h-5 rounded-full bg-white/10 flex items-center p-0.5 border border-white/20 transition-colors hover:border-electric relative"
+              title="Toggle Theme"
+            >
+              <div className={`w-4 h-4 rounded-full bg-white flex items-center justify-center transition-transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`}>
+                {darkMode ? <Moon size={10} className="text-black" /> : <Sun size={10} className="text-black" />}
+              </div>
+            </button>
           </nav>
-        </div>
 
-        {/* --- RIGHT SIDE GROUP --- */}
-        <div className="flex items-center gap-4">
-          {/* Desktop/Tablet CTA */}
-          <Link
-            to="/getintouch"
-            className="hidden md:block bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/50 text-cyan-400 hover:text-cyan-300 px-6 py-2.5 rounded-md transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,182,212,0.2)] font-mono text-xs font-bold tracking-widest uppercase cursor-pointer"
-          >
-            Get in Touch
-          </Link>
-
-          {/* Mobile Toggle */}
+          {/* Mobile Menu Toggle */}
           <button
-            className="lg:hidden text-gray-200 hover:text-cyan-400 transition-colors relative z-50"
-            onClick={() => setOpen(!open)}
+            className="md:hidden text-gray-400 hover:text-white transition-colors"
+            onClick={() => setMenuOpen(!menuOpen)}
           >
-            {open ? <X size={28} /> : <Menu size={28} />}
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
       </div>
 
-      {/* --- MOBILE FULLSCREEN MENU DRAWER --- */}
-      <div
-        className={`fixed inset-0 z-40 bg-black/95 transition-transform duration-300 lg:hidden flex flex-col items-center justify-start pt-24 ${
-          open ? "translate-x-0" : "translate-x-full"
-        }`}
-      >
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.05)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.05)_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none"></div>
-
-        <div className="relative z-10 w-full max-w-lg mx-auto p-8 flex flex-col gap-6">
-          {navItems.map((item) => (
-            <Link
-              key={item}
-              to={"/" + item.toLowerCase()}
-              onClick={() => setOpen(false)}
-              className="group flex items-center justify-between py-4 border-b border-white/10 text-xl font-mono text-gray-300 hover:text-white transition-all cursor-pointer"
-            >
-              <span className="group-hover:translate-x-2 transition-transform duration-300">
-                {item}
-              </span>
-              <ChevronRight
-                size={20}
-                className="text-cyan-500 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300"
-              />
-            </Link>
-          ))}
-
-          {/* Mobile CTA inside Drawer */}
-          <Link
-            to="/getintouch"
-            onClick={() => setOpen(false)}
-            className="mt-8 w-full bg-cyan-900/20 border border-cyan-500/50 text-cyan-400 font-mono font-bold py-4 rounded hover:bg-cyan-500/20 transition-all uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(6,182,212,0.1)] text-center md:hidden cursor-pointer"
+      {/* Mobile Nav Overlay */}
+      <AnimatePresence>
+        {menuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden absolute top-full left-6 right-6 mt-2 glass-panel rounded-2xl overflow-hidden"
           >
-            Get in Touch
-          </Link>
-        </div>
-      </div>
-    </header>
+            <nav className="flex flex-col p-4">
+              {navLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-3 text-sm font-medium text-gray-300 hover:text-white hover:bg-white/5 rounded-xl transition-all"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.header>
   );
 }

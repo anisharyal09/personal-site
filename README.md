@@ -4,46 +4,46 @@
 > **Live:** https://anisharyal09.com.np
 
 A personal portfolio system built with **React**, **Vite**, **Tailwind CSS**, and **Supabase**.  
-Focused on clean structure, controlled visuals, and functional UI — not gimmicks.
+Focused on a clean, modern, and minimalistic "glassy UI" with robust functionality.
 
 ---
 
 ## 🧱 Tech Stack
 
-- **Architecture:** Single Page Application (SPA)
+- **Architecture:** Modular Single Page Application (SPA)
 - **Frontend:** React 18 + Vite
-- **Styling:** Tailwind CSS
-- **Backend:** Supabase (PostgreSQL, RLS-enabled)
+- **Styling:** Tailwind CSS + Vanilla CSS Variables (Dark/Light Theme)
+- **Animations:** Framer Motion
+- **Backend:** Supabase
 - **Icons:** Lucide React
 
-## 🧩 Core Sections & Features
+## 🧩 Core Sections & Features (v2.0)
 
-### 🧠 Hero / Identity
-- Dynamic **typing effect** (regex-driven, not hardcoded text swaps)
-- Cyberpunk-inspired UI elements
+### 🧠 Intro / Identity
+- Dynamic **typing effect** (regex-driven).
+- Clean, minimalistic layout with an interactive image that seamlessly integrates with the contact flow.
 
-### 🧪 Skills / Capabilities
-- Skill nodes rendered with **controlled randomness**
-- No percentage bars or fake proficiency metrics
-- Logical separation between:
-  - Core logic / fundamentals
-  - Tools & stacks
+### 🧪 Stack / Capabilities
+- Clear breakdown of skills.*
+
+### 💻 Projects
+- Clean card-based layout using glass panels.
 
 ### 🎓 Education
-- **Collapsible UI:** Academic details are minimized by default to reduce visual noise.
+- **Collapsible UI:** Academic details are minimized by default to reduce visual noise and emphasize a sleek design.
 
-### 📬 Get In Touch
-- Contact form backed by **Supabase**
-- Real-time validation
-- Database-level protection via Supabase policies (RLS)
-- Professional links with visual iconography
+### 📬 Contact / Collaborate
+- Unified contact section backed by **Supabase**.
+- Floating interactive **Avatar widget** that broadcasts online status and opens communication.
+- Real-time validation and database-level protection via Supabase policies (RLS).
 
-### 🧩 Extensions
-- **Interests:** Personal hobbies and side quests.
+### 🎨 Theming
+- Native **Dark Mode** by default with built-in **Light Mode** support.
+- Interactive toggle in the navigation header that seamlessly switches global CSS variables.
 
 ### ❌ Custom Error Page
-- Dedicated error / fallback page
-- Handles random or unknown routes
+- Dedicated `404` error / fallback page.
+- Gracefully handles unknown routes in the SPA structure.
 
 
 ## ⚙️ Local Setup
@@ -59,19 +59,17 @@ npm install
 
 ### 2. Environment Variables
 
-Create a .env file in the project root:
+Create a `.env` file in the project root:
 ```
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 ### 3. Run Development Server
-```
+```bash
 npm run dev
 ```
 
-
 ---
 
-
-© 2025 Anish Aryal
+© 2026 Anish Aryal
