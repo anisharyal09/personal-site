@@ -4,7 +4,7 @@ import { Terminal, Code2, Database, Cpu } from 'lucide-react';
 
 const coreStack = [
   { name: 'C / C++', icon: <Cpu className="text-electric" size={24} />, desc: 'Foundational logic & algorithms' },
-  { name: 'Python', icon: <Terminal className="text-neon-purple" size={24} />, desc: 'Basic scripting & automation' },
+  { name: 'Python', icon: <Terminal className="text-neon-purple" size={24} />, desc: 'Scripting & automation' },
 ];
 
 const prodStack = [

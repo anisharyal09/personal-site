@@ -1,4 +1,4 @@
-# ⚡ ARYAL_SYSTEMS
+# ⚡ ANISH.SYS
 
 > **Status:** Active  
 > **Live:** https://anisharyal09.com.np

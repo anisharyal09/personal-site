@@ -28,7 +28,7 @@ function DecryptGPA({ value }) {
 
   useEffect(() => {
     if (!revealed) return;
-    const timer = setTimeout(() => setRevealed(false), 9000);
+    const timer = setTimeout(() => setRevealed(false), 3000);
     return () => clearTimeout(timer);
   }, [revealed]);
 
@@ -37,12 +37,12 @@ function DecryptGPA({ value }) {
       onClick={() => setRevealed(!revealed)}
       className={`relative overflow-hidden flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-sm font-mono transition-all duration-500 border ${revealed
         ? 'bg-electric/10 border-electric/30 text-electric shadow-[0_0_15px_var(--color-electric-glow)]'
-        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10'
+        : 'bg-white/5 border-white/10 text-gray-400 hover:bg-white/10 opacity-45'
         }`}
-      title={revealed ? 'Hides in 9s' : 'Click to decrypt'}
+      title={revealed ? 'Hides in 3s' : 'Click to decrypt'}
     >
       {revealed ? <Unlock size={14} /> : <Lock size={14} />}
-      <span className={revealed ? 'animate-decrypt inline-block' : 'filter blur-sm select-none opacity-60 inline-block'}>
+      <span className={revealed ? 'animate-decrypt inline-block' : 'filter blur-[6px] select-none inline-block'}>
         {revealed ? value : 'HIDDEN'}
       </span>
     </button>

@@ -50,7 +50,7 @@ export default function Intro() {
   };
 
   return (
-    <section className="relative w-full min-h-screen flex items-center justify-center pt-20 pb-12 overflow-hidden" id="intro">
+    <section className="relative w-full flex items-center justify-center pt-32 pb-20 md:pt-40 md:pb-28 lg:pt-48 lg:pb-32 overflow-hidden" id="intro">
       <div className="section-container w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center z-10 relative">
 
         <motion.div
@@ -59,12 +59,36 @@ export default function Intro() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col z-20 items-center text-center lg:items-start lg:text-left"
         >
-          <div className="flex items-center gap-4 mb-8">
-            <div className="hidden lg:block w-8 h-[1px] bg-electric"></div>
-            <span className="font-mono text-[10px] text-electric tracking-[0.3em] uppercase">
-              System.Status(Online)
-            </span>
-          </div>
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="flex items-center gap-4 mb-8 group"
+          >
+            <div className="flex items-center gap-3 px-3 py-1.5 bg-electric/5 border border-electric/20 rounded-md relative overflow-hidden backdrop-blur-sm cursor-default">
+              <div className="absolute inset-0 bg-gradient-to-r from-electric/0 via-electric/20 to-electric/0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></div>
+              
+              <div className="relative flex items-center justify-center">
+                <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-electric opacity-75"></span>
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-electric"></span>
+              </div>
+              
+              <span className="font-mono text-[10px] text-electric tracking-[0.2em] uppercase font-medium">
+                SYS.CORE // <span className="text-white font-bold">ONLINE</span>
+              </span>
+            </div>
+
+            <div className="hidden lg:flex items-center gap-1 opacity-60">
+               {[...Array(4)].map((_, i) => (
+                  <motion.div 
+                    key={i} 
+                    animate={{ height: ["4px", "16px", "4px"] }} 
+                    transition={{ repeat: Infinity, duration: 1.2, delay: i * 0.15, ease: "easeInOut" }}
+                    className="w-[2px] bg-electric rounded-full"
+                  />
+               ))}
+            </div>
+          </motion.div>
 
           <h1 className="text-7xl sm:text-8xl lg:text-[7rem] font-black tracking-tighter text-white leading-[0.85] mb-8">
             ANISH<br />

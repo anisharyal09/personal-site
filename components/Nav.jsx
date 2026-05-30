@@ -90,13 +90,24 @@ export default function Nav() {
             </button>
           </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden text-gray-400 hover:text-white transition-colors"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
+          {/* Mobile Menu Toggle & Theme Toggle */}
+          <div className="md:hidden flex items-center gap-4">
+            <button
+              onClick={toggleTheme}
+              className="w-10 h-5 rounded-full bg-white/10 flex items-center p-0.5 border border-white/20 transition-colors hover:border-electric relative"
+              title="Toggle Theme"
+            >
+              <div className={`w-4 h-4 rounded-full bg-white flex items-center justify-center transition-transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`}>
+                {darkMode ? <Moon size={10} className="text-black" /> : <Sun size={10} className="text-black" />}
+              </div>
+            </button>
+            <button
+              className="text-gray-400 hover:text-white transition-colors"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
       </div>
 
