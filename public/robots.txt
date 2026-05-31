@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://anisharyal09.com.np/sitemap.xml

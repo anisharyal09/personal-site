@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <!-- Glowing gradients -->
+    <linearGradient id="grad-electric" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00f2fe" />
+      <stop offset="100%" stop-color="#4facfe" />
+    </linearGradient>
+    <linearGradient id="grad-neon" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f355da" />
+      <stop offset="100%" stop-color="#7000ff" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="3" result="blur" />
+      <feMerge>
+        <feMergeNode in="blur" />
+        <feMergeNode in="SourceGraphic" />
+      </feMerge>
+    </filter>
+    <style>
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 0.8; transform: scale(1); }
+        50% { opacity: 1; transform: scale(1.03); }
+      }
+      @keyframes dash {
+        0% { stroke-dashoffset: 120; }
+        100% { stroke-dashoffset: 0; }
+      }
+      .spin-element {
+        transform-origin: 50px 50px;
+        animation: spin 25s linear infinite;
+      }
+      .pulse-element {
+        transform-origin: 50px 50px;
+        animation: pulse 4s ease-in-out infinite;
+      }
+      .dash-element {
+        stroke-dasharray: 50 25;
+        animation: dash 6s linear infinite;
+      }
+    </style>
+  </defs>
+  
+  <!-- Outer Rotating Tech Orbit -->
+  <circle cx="50" cy="50" r="44" fill="none" stroke="url(#grad-neon)" stroke-width="1.5" stroke-dasharray="12 8" opacity="0.4" class="spin-element" />
+
+  <!-- Outer Tech Octagon -->
+  <polygon points="50,11 77,22 89,50 77,78 50,89 23,78 11,50 23,22" fill="none" stroke="url(#grad-electric)" stroke-width="2.5" filter="url(#glow)" class="dash-element" />
+
+  <!-- Circuit nodes/lines connecting to octagon -->
+  <line x1="50" y1="11" x2="50" y2="25" stroke="url(#grad-electric)" stroke-width="1.5" stroke-dasharray="2 2" />
+  <line x1="50" y1="89" x2="50" y2="75" stroke="url(#grad-electric)" stroke-width="1.5" stroke-dasharray="2 2" />
+  <circle cx="50" cy="25" r="2" fill="#00f2fe" filter="url(#glow)" />
+  <circle cx="50" cy="75" r="2" fill="#00f2fe" filter="url(#glow)" />
+
+  <!-- Futuristic Monogram A (Delta Core) -->
+  <g class="pulse-element">
+    <path d="M50 26 L73 70 H61 L50 49 L39 70 H27 Z" fill="url(#grad-neon)" opacity="0.9" filter="url(#glow)" />
+    <!-- Floating central core node -->
+    <circle cx="50" cy="56" r="3" fill="#ffffff" filter="url(#glow)" />
+  </g>
+</svg>

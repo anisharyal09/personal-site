@@ -1,4 +1,4 @@
-# ⚡ ANISH.SYS
+# ⚡ ANISH SYS.
 
 > **Status:** Active  
 > **Live:** https://anisharyal09.com.np
@@ -17,7 +17,7 @@ Focused on a clean, modern, and minimalistic "glassy UI" with robust functionali
 - **Backend:** Supabase
 - **Icons:** Lucide React
 
-## 🧩 Core Sections & Features (v2.0)
+## 🧩 Core Sections & Features
 
 ### 🧠 Intro / Identity
 - Dynamic **typing effect** (regex-driven).
@@ -44,6 +44,11 @@ Focused on a clean, modern, and minimalistic "glassy UI" with robust functionali
 ### ❌ Custom Error Page
 - Dedicated `404` error / fallback page.
 - Gracefully handles unknown routes in the SPA structure.
+
+### 🔍 SEO & Assets
+- **Search Engine Optimization**: Implemented structured JSON-LD (Schema.org Person metadata), customized meta description, robots instructions, and Open Graph/Twitter card preview support.
+- **Sitemap & Search Indexing**: Automated `sitemap.xml` and `robots.txt` configuration for direct search engine discovery.
+- **Animated Icon**: Added custom, animated icon (`favicon.svg`) used consistently for browser favicon, Open Graph, and Twitter metadata configurations.
 
 
 ## ⚙️ Local Setup
