@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Github, Sparkles, X, ArrowRight } from 'lucide-react';
+import { Github, Sparkles, X, ArrowRight, ExternalLink } from 'lucide-react';
 import feedFreeIcon from '../src/assets/icon.png';
 
 const ChromeLogo = () => (
@@ -11,7 +11,7 @@ const ChromeLogo = () => (
 
 const FirefoxLogo = () => (
   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
-    <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm-.12 3.012c-1.397.05-3.08.775-4.226 2.05-2.28 2.534-1.954 6.845-1.954 6.845a7.35 7.35 0 0 1 1.054-2.85c.677-1.127 1.868-2.072 3.498-2.483.585-.148 1.403-.213 1.258.468-.13.61-.83 1.156-1.298 1.703-1.077 1.258-1.523 2.825-1.523 4.49 0 3.327 2.456 5.862 5.617 5.862 3.12 0 5.617-2.617 5.617-5.862 0-3.21-2.29-6.467-5.01-7.76-.796-.379-1.558-.577-2.062-.647.534-.233 1.282-.361 2.076-.361 3.535 0 7.42 2.617 7.42 7.76 0 4.148-3.045 7.76-7.42 7.76-4.375 0-7.42-3.612-7.42-7.76 0-3.418 2.05-7.76 6.87-8.19v-.03z"/>
+    <path d="M12 0c6.627 0 12 5.373 12 12s-5.373 12-12 12S0 18.627 0 12 5.373 0 12 0zm-.12 3.012c-1.397.05-3.08.775-4.226 2.05-2.28 2.534-1.954 6.845-1.954 6.845a7.35 7.35 0 0 1 1.054-2.85c.677-1.127 1.868-2.072 3.498-2.483.585-.148 1.403-.213 1.258.468-.13.61-.83 1.156-1.298 1.703-1.077 1.258-1.523 2.825-1.523 4.49 0 3.327 2.456 5.862 5.617 5.862 3.12 0 5.617-2.617 5.617-5.862 0-3.21-2.29-6.467-5.01-7.76-.796-.379-1.558-.577-2.062-.647.534-.233 1.282-.361 2.076-.361 3.535 0 7.42 2.617 7.42 7.76 0 4.148-3.045 7.76-7.42 7.76-4.375 0-7.42-3.612-7.42-7.76 0-3.418 2.05-7.76 6.87-8.19v-.03z" />
   </svg>
 );
 
@@ -69,6 +69,11 @@ const projects = [
           { name: 'Firefox + Chrome', desc: 'Supports both browsers from the same codebase.' },
           { name: 'Grayscale Mode', desc: 'Apply a global high-contrast desaturation filter across both platforms to reduce visual dopamine triggers without shifting layouts.' },
           { name: 'Core Engine Optimization', desc: 'Synchronous Anti-Flicker scripts ensure instant, zero-delay node filtering during Single-Page Application (SPA) transitions.' }
+        ],
+        roadmap: [
+          { name: 'Phase 2: Unbiased Feed', desc: 'Work on compiling educational or curated random feeds (Wikipedia, custom resources) to replace manipulative algorithms.' },
+          { name: 'Phase 3: Strict Lock', desc: 'Introduce behavior controls, usage restrictions, and intentional friction blocks for digital detoxing.' },
+          { name: 'Social Platform Scaling', desc: 'Engine architecture decoupled from platform hooks, built for future expansion to support other major feed platforms.' }
         ]
       }
     }
@@ -77,10 +82,29 @@ const projects = [
     name: 'Lipi-Snap',
     type: 'Machine Learning / OCR',
     description: 'An advanced deep-learning OCR system for the Ranjana script. Phase 2 achieves 98.14% word recognition accuracy using a CRNN+CTC architecture, and features a Streamlit interface for real-time Nepali / IAST Transliteration, and English translation, including Ranjana Transcription.',
-    tags: ['Python', 'Machine Learning', 'Computer Vision'],
-    status: '...',
+    tags: ['Python', 'AI', 'Machine Learning', 'Computer Vision', 'Streamlit'],
     github: 'https://github.com/anisharyal09/Lipi-Snap',
+    demo: 'https://huggingface.co/spaces/anisharyal09/Lipi-Snap',
+    status: 'Active',
     featured: false,
+    details: {
+      tagline: 'An OCR (Transcription, Transliteration & Translation) model for the Ranjana script.',
+      features: {
+        model: [
+          { name: 'CRNN + CTC (Phase 2)', desc: 'Current PyTorch network utilizing Bidirectional LSTM recurrence and CTC sequence decoding for word-level prediction.' },
+          { name: 'CharCNN (Phase 1)', desc: 'Archived character-level recognition model based on a custom convolutional neural network (CNN) architecture.' },
+          { name: '98.14% Word Accuracy', desc: 'Validation accuracy of 99.65% (CER 0.05%) and exact-match test accuracy of 98.14% on unseen synthetic words.' }
+        ],
+        pipeline: [
+          { name: 'Multi-Stage Pipeline', desc: 'Seamless translation: Devanagari transcription, indic-transliteration (IAST) with indica numerals, and English translations.' },
+          { name: 'Augmentations & Dataset', desc: 'Augmented with random affine transforms, Gaussian blur, and custom synthetic generation covering 241k samples.' }
+        ],
+        interface: [
+          { name: 'Neo-Minimal Streamlit UI', desc: 'Responsive dual-panel layout supporting dynamic font rendering, OpenCV previews (Raw vs Processed), and diagnostic metrics.' },
+          { name: 'Visual Diagnostics', desc: 'Visualizes CTC greedy decoding paths, character-level confidence breakdown bars, and random image test set testing.' }
+        ]
+      }
+    }
   }
 ];
 
@@ -112,9 +136,8 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-50px" }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
-              className={`glass-panel glass-panel-hover rounded-3xl p-8 relative overflow-hidden group flex flex-col justify-between ${
-                project.featured ? 'md:col-span-2 md:flex-row gap-8 items-center border-electric/30' : ''
-              }`}
+              className={`glass-panel glass-panel-hover rounded-3xl p-8 relative overflow-hidden group flex flex-col justify-between ${project.featured ? 'md:col-span-2 md:flex-row gap-8 items-center border-electric/30' : ''
+                }`}
             >
               {/* Background Glow */}
               <div className="absolute -inset-24 bg-gradient-to-br from-electric/0 via-electric/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 blur-2xl pointer-events-none"></div>
@@ -149,6 +172,11 @@ export default function Projects() {
                         <Github size={18} />
                       </a>
                     )}
+                    {project.demo && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-white/5 rounded-full hover:bg-white/10 hover:text-white text-gray-400 transition-colors" title="View Live Demo">
+                        <ExternalLink size={18} />
+                      </a>
+                    )}
                   </div>
                 </div>
 
@@ -166,7 +194,7 @@ export default function Projects() {
 
                 <div className="flex items-center justify-between mt-auto">
                   <div className="inline-flex items-center gap-2 text-xs font-mono">
-                    <div className={`w-2 h-2 rounded-full ${project.status === 'Live' ? 'bg-green-400 animate-pulse' : 'bg-yellow-400'}`}></div>
+                    <div className={`w-2 h-2 rounded-full ${project.status.includes('Live') || project.status === 'Active' ? 'bg-green-400 animate-pulse' : 'bg-yellow-400'}`}></div>
                     <span className="text-gray-400">{project.status}</span>
                   </div>
 
@@ -237,9 +265,21 @@ function ProjectModal({ project, onClose }) {
             />
           )}
           <div className="flex-1">
-            <span className="font-mono text-xs font-semibold tracking-widest text-electric uppercase mb-1 block">
-              {project.type}
-            </span>
+            <div className="flex items-center gap-3 mb-1">
+              <span className="font-mono text-xs font-semibold tracking-widest text-electric uppercase">
+                {project.type}
+              </span>
+              {project.name.includes('Feed Free') && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-green-500/10 border border-green-500/20 text-green-400">
+                  Phase 1 // Live Version
+                </span>
+              )}
+              {project.name.includes('Lipi-Snap') && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                  Phase 2 // Word-Level OCR
+                </span>
+              )}
+            </div>
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{project.name}</h3>
             <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed max-w-2xl">
               {project.details.tagline}
@@ -247,7 +287,7 @@ function ProjectModal({ project, onClose }) {
           </div>
         </div>
 
-        {/* Store & GitHub Links */}
+        {/* Store & GitHub & Demo Links */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
           {project.chrome && (
             <a
@@ -271,6 +311,17 @@ function ProjectModal({ project, onClose }) {
               Firefox Add-on
             </a>
           )}
+          {project.demo && project.demo.includes('huggingface.co') && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-4 py-2.5 text-xs font-mono bg-yellow-500/10 hover:bg-yellow-500 border border-yellow-500/30 hover:border-yellow-500 text-yellow-600 hover:text-white rounded-xl transition-all duration-300 font-semibold cursor-pointer shadow-[0_0_10px_rgba(234,179,8,0.15)] hover:shadow-[0_0_15px_rgba(234,179,8,0.4)]"
+            >
+              <span className="text-xs">🤗</span>
+              Hugging Face Spaces
+            </a>
+          )}
           {project.github && (
             <a
               href={project.github}
@@ -286,65 +337,40 @@ function ProjectModal({ project, onClose }) {
 
         {/* Features Content Grid */}
         <div className="flex-1 mt-2">
-          <h4 className="font-mono text-xs text-gray-500 uppercase tracking-widest mb-6">Extension Features Checklist</h4>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* YouTube Column */}
-            <div className="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col gap-4">
-              <h5 className="font-mono text-sm font-bold text-red-400 flex items-center gap-2 pb-2 border-b border-white/5">
-                <span className="w-2.5 h-2.5 rounded-full bg-red-500"></span>
-                YouTube Rules
-              </h5>
-              <ul className="space-y-4 text-xs text-gray-400 font-light">
-                {project.details.features.youtube.map((f) => (
-                  <li key={f.name} className="flex gap-2 items-start leading-relaxed">
-                    <span className="text-red-400 flex-shrink-0 font-bold">•</span>
-                    <div>
-                      <strong className="text-white block font-medium mb-0.5">{f.name}</strong>
-                      <span>{f.desc}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <h4 className="font-mono text-xs text-gray-500 uppercase tracking-widest mb-4">Project Details & Features</h4>
 
-            {/* Instagram Column */}
-            <div className="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col gap-4">
-              <h5 className="font-mono text-sm font-bold text-pink-400 flex items-center gap-2 pb-2 border-b border-white/5">
-                <span className="w-2.5 h-2.5 rounded-full bg-pink-500"></span>
-                Instagram Rules
-              </h5>
-              <ul className="space-y-4 text-xs text-gray-400 font-light">
-                {project.details.features.instagram.map((f) => (
-                  <li key={f.name} className="flex gap-2 items-start leading-relaxed">
-                    <span className="text-pink-400 flex-shrink-0 font-bold">•</span>
-                    <div>
-                      <strong className="text-white block font-medium mb-0.5">{f.name}</strong>
-                      <span>{f.desc}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="glass-panel p-6 md:p-8 rounded-2xl border border-white/5 space-y-8 max-h-[400px] overflow-y-auto scrollbar-thin">
+            {Object.keys(project.details.features).map((categoryKey) => {
+              const category = project.details.features[categoryKey];
+              const config = {
+                youtube: { label: 'YouTube Rules', colorClass: 'text-red-400', bgClass: 'bg-red-500' },
+                instagram: { label: 'Instagram Rules', colorClass: 'text-pink-400', bgClass: 'bg-pink-500' },
+                global: { label: 'Global Engine', colorClass: 'text-electric', bgClass: 'bg-electric' },
+                roadmap: { label: 'Roadmap & Future Phases', colorClass: 'text-neon-purple', bgClass: 'bg-neon-purple' },
+                model: { label: 'CRNN + CTC Model Architecture', colorClass: 'text-electric', bgClass: 'bg-electric' },
+                dataset: { label: 'Training Dataset', colorClass: 'text-red-400', bgClass: 'bg-red-500' },
+                pipeline: { label: 'Real-time OCR Pipeline', colorClass: 'text-pink-400', bgClass: 'bg-pink-500' }
+              }[categoryKey] || { label: categoryKey, colorClass: 'text-white', bgClass: 'bg-white' };
 
-            {/* Global/Core Column */}
-            <div className="glass-panel p-6 rounded-2xl border border-white/5 flex flex-col gap-4">
-              <h5 className="font-mono text-sm font-bold text-electric flex items-center gap-2 pb-2 border-b border-white/5">
-                <span className="w-2.5 h-2.5 rounded-full bg-electric animate-pulse"></span>
-                Global Engine
-              </h5>
-              <ul className="space-y-4 text-xs text-gray-400 font-light">
-                {project.details.features.global.map((f) => (
-                  <li key={f.name} className="flex gap-2 items-start leading-relaxed">
-                    <span className="text-electric flex-shrink-0 font-bold">•</span>
-                    <div>
-                      <strong className="text-white block font-medium mb-0.5">{f.name}</strong>
-                      <span>{f.desc}</span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </div>
+              return (
+                <div key={categoryKey}>
+                  <h5 className={`font-mono text-xs font-bold ${config.colorClass} flex items-center gap-2 pb-2 border-b border-white/5 mb-3 uppercase tracking-wider`}>
+                    <span className={`w-2 h-2 rounded-full ${config.bgClass}`}></span>
+                    {config.label}
+                  </h5>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-3">
+                    {category.map((f) => (
+                      <div key={f.name} className="flex gap-2 items-start text-xs text-gray-400 font-light leading-relaxed">
+                        <span className={`${config.colorClass} flex-shrink-0 font-bold`}>•</span>
+                        <div>
+                          <strong className="text-white font-medium">{f.name}</strong> — <span>{f.desc}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </motion.div>
