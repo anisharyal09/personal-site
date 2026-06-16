@@ -48,7 +48,7 @@ export default function Nav() {
             }`}
         >
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 min-[950px]:gap-3 group">
+          <Link to="/" className="flex items-center gap-2 min-[950px]:gap-3 group">
             <img src="/favicon.svg" className="w-8 h-8 min-[950px]:w-9 min-[950px]:h-9 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.25)] group-hover:drop-shadow-[0_0_12px_rgba(0,242,254,0.5)] transition-all duration-300 flex-shrink-0" alt="Logo" />
             <div className="flex flex-col items-start leading-none min-[950px]:flex-row min-[950px]:items-center gap-0.5 min-[950px]:gap-1.5">
               <span className="font-mono text-xs min-[950px]:text-sm lg:text-base font-bold tracking-tight text-white group-hover:text-glow transition-all duration-300">
@@ -62,7 +62,7 @@ export default function Nav() {
               </div>
             </div>
             <span className="w-1 h-3.5 bg-electric ml-0.5 animate-pulse opacity-0 group-hover:opacity-100 transition-opacity hidden sm:inline-block"></span>
-          </a>
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-6">

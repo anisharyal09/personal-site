@@ -11,6 +11,7 @@ import Contact from '../components/Contact.jsx';
 import Footer from '../components/Footer.jsx';
 import Analysis from '../components/Analysis.jsx';
 import Avatar from '../components/Avatar.jsx';
+import Support from '../components/Support.jsx';
 
 import Error404 from '../components/OtherComponents/Error404';
 
@@ -34,6 +35,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<HomeLayout />} />
           <Route path="/analysis" element={<Analysis />} />
+          <Route path="/support" element={<Support />} />
           <Route path="*" element={<Error404 />} />
         </Routes>
       </main>
