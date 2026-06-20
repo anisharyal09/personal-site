@@ -105,6 +105,26 @@ const projects = [
         ]
       }
     }
+  },
+  {
+    name: 'YT-Audio-Air',
+    type: 'macOS App',
+    description: 'A native macOS menu bar wrapper designed for seamless, resource-efficient YouTube audio streaming.',
+    tags: ['Swift', 'macOS', 'Menu Bar App', 'Utility'],
+    github: 'https://github.com/anisharyal09/yt-audio-air',
+    homebrew: 'brew install anisharyal09/tap/yaa',
+    status: 'Active',
+    featured: false,
+    details: {
+      tagline: 'A native macOS menu bar wrapper designed for seamless, resource-efficient YouTube audio streaming.',
+      features: {
+        app: [
+          { name: 'Native macOS Experience', desc: 'Sits quietly in your macOS menu bar for quick, unobtrusive access.' },
+          { name: 'Resource Efficient', desc: 'Optimized for audio streaming with minimal CPU and memory footprint compared to a full browser.' },
+          { name: 'Swift Architecture', desc: 'Built natively for macOS using Swift.' }
+        ]
+      }
+    }
   }
 ];
 
@@ -279,6 +299,11 @@ function ProjectModal({ project, onClose }) {
                   Phase 2 // Word-Level OCR
                 </span>
               )}
+              {project.name.includes('YT-Audio-Air') && (
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-purple-500/10 border border-purple-500/20 text-purple-400">
+                  Native // Swift 5
+                </span>
+              )}
             </div>
             <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{project.name}</h3>
             <p className="text-gray-400 text-sm md:text-base font-light leading-relaxed max-w-2xl">
@@ -289,6 +314,14 @@ function ProjectModal({ project, onClose }) {
 
         {/* Store & GitHub & Demo Links */}
         <div className="flex flex-wrap items-center gap-3 mb-8">
+          {project.homebrew && (
+            <div
+              className="flex items-center gap-3 px-4 py-2.5 text-xs font-mono bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 rounded-xl shadow-[0_0_10px_rgba(16,185,129,0.15)] group"
+            >
+              <span className="text-emerald-500 font-bold">{'>_'}</span>
+              <code className="select-all cursor-text">{project.homebrew}</code>
+            </div>
+          )}
           {project.chrome && (
             <a
               href={project.chrome}
