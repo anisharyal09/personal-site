@@ -24,7 +24,7 @@
 
 :root.light-mode-active body {
   color: #1e293b !important;
-  background-image: radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.08), transparent 70%);
+  background-image: none;
 }
 
 :root.light-mode-active .text-white,
@@ -62,16 +62,23 @@
   background-color: rgba(255, 255, 255, 0.5) !important;
 }
 
+:root.light-mode-active .bg-black\/70,
+:root.light-mode-active .bg-black\/75 {
+  background-color: rgba(255, 255, 255, 0.88) !important;
+}
+
 @layer base {
   :root {
     color-scheme: dark;
   }
   
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   body {
     background-color: var(--color-dark);
-    /* Subtle radial gradient for depth */
-    background-image: radial-gradient(circle at 50% 0%, rgba(0, 229, 255, 0.05), transparent 70%);
-    background-attachment: fixed;
     min-height: 100vh;
   }
 
@@ -88,6 +95,163 @@
   ::-webkit-scrollbar-thumb:hover {
     background: var(--color-electric);
   }
+}
+
+/* A compositor-friendly live backdrop: gradients only, no image or canvas cost. */
+.ambient-background {
+  --pointer-x: 50vw;
+  --pointer-y: 28vh;
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--color-dark);
+}
+
+.ambient-background::before,
+.ambient-background::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  will-change: transform;
+}
+
+.ambient-background::before {
+  opacity: 0.24;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: 54px 54px;
+  mask-image: radial-gradient(ellipse at center, black, transparent 68%);
+}
+
+.ambient-background::after {
+  width: 18rem;
+  height: 18rem;
+  inset: auto;
+  top: 10%;
+  right: 8%;
+  border-radius: 999px;
+  filter: blur(55px);
+  opacity: 0.075;
+  background: var(--color-electric);
+  animation: ambient-drift 11s ease-in-out infinite alternate;
+}
+
+.ambient-cursor-trail,
+.ambient-cursor-glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 999px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.ambient-cursor-trail {
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.24), rgba(0, 229, 255, 0.06) 34%, transparent 68%);
+}
+
+.ambient-cursor-trail-near {
+  width: 22rem;
+  height: 22rem;
+  opacity: 0.1;
+  transform: translate3d(calc(var(--pointer-x) - 50%), calc(var(--pointer-y) - 50%), 0);
+  transition: transform 650ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ambient-cursor-trail-far {
+  width: 34rem;
+  height: 34rem;
+  opacity: 0.055;
+  transform: translate3d(calc(var(--pointer-x) - 50%), calc(var(--pointer-y) - 50%), 0);
+  transition: transform 1600ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ambient-cursor-glow {
+  width: 16rem;
+  height: 16rem;
+  opacity: 0.11;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.6), rgba(0, 229, 255, 0.12) 30%, transparent 67%);
+  transform: translate3d(calc(var(--pointer-x) - 50%), calc(var(--pointer-y) - 50%), 0);
+}
+
+:root.light-mode-active .ambient-background {
+  background:
+    radial-gradient(28rem circle at 90% 5%, rgba(2, 132, 199, 0.11), transparent 54%),
+    radial-gradient(24rem circle at 8% 92%, rgba(126, 34, 206, 0.045), transparent 58%),
+    #f8fafc;
+}
+
+:root.light-mode-active .ambient-background::before {
+  opacity: 0.22;
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.035) 1px, transparent 1px);
+}
+
+:root.light-mode-active .ambient-background::after {
+  display: block;
+  opacity: 0.18;
+  background: #0284c7;
+}
+
+:root.light-mode-active .ambient-cursor-trail {
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.30), rgba(14, 165, 233, 0.08) 38%, transparent 70%);
+}
+
+:root.light-mode-active .ambient-cursor-trail-near { opacity: 0.2; }
+:root.light-mode-active .ambient-cursor-trail-far { opacity: 0.12; }
+
+:root.light-mode-active .ambient-cursor-glow {
+  display: block;
+  opacity: 0.22;
+  background: radial-gradient(circle, rgba(2, 132, 199, 0.45), rgba(14, 165, 233, 0.10) 36%, transparent 68%);
+}
+
+@keyframes ambient-drift {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-12rem, 11rem, 0) scale(1.1); }
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .ambient-background::after { animation: none; }
+  .ambient-cursor-trail { display: none; }
+  .ambient-cursor-glow { display: none; }
+}
+
+:root.light-mode-active nav a:hover {
+  color: var(--color-electric) !important;
+  text-shadow: 0 0 14px rgba(2, 132, 199, 0.24);
+}
+
+:root.light-mode-active #contact h2 {
+  background-image: none;
+  color: #0f172a;
+  -webkit-text-fill-color: #0f172a;
+}
+
+.route-loader {
+  min-height: 50vh;
+}
+
+.creation-category {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 44rem;
+}
+
+.contact-panel {
+  background: linear-gradient(135deg, rgba(0, 229, 255, 0.045), transparent 46%), rgba(255, 255, 255, 0.05);
+}
+
+:root.light-mode-active .contact-panel {
+  background: linear-gradient(135deg, rgba(2, 132, 199, 0.07), transparent 46%), rgba(255, 255, 255, 0.82);
+}
+
+:root.light-mode-active .glass-panel {
+  background-color: rgba(255, 255, 255, 0.86) !important;
+  box-shadow: 0 16px 36px rgba(15, 23, 42, 0.07) !important;
 }
 
 @layer utilities {
@@ -138,7 +302,7 @@
 
 /* Base utility for components */
 .section-container {
-  @apply max-w-5xl mx-auto px-6 py-24;
+  @apply max-w-6xl mx-auto px-3 sm:px-6 py-12 md:py-20;
 }
 
 .section-title {
@@ -149,3 +313,10 @@
   content: '';
   @apply block w-8 h-1 bg-gradient-to-r from-electric to-transparent rounded-full;
 }
+
+/* Hide default cursor on homepage for rocket-only cursor */
+body.hide-default-cursor,
+body.hide-default-cursor * {
+  cursor: none !important;
+}
+

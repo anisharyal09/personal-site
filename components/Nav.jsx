@@ -3,8 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
-
-
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -13,7 +11,6 @@ export default function Nav() {
 
   const toggleTheme = () => {
     setDarkMode(!darkMode);
-    // Real implementation would apply a '.light' class to the body or tailwind wrapper.
     document.documentElement.classList.toggle('light-mode-active');
   };
 
@@ -25,12 +22,17 @@ export default function Nav() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleLogoClick = (e) => {
+    if (location.pathname === '/') {
+      window.history.pushState(null, '', '/#');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
+
   const navLinks = [
-    { label: 'Stack', href: '#stack', isHash: true },
-    { label: 'Projects', href: '#projects', isHash: true },
+    { label: 'Work', href: '#projects', isHash: true },
     { label: 'Education', href: '#education', isHash: true },
-    { label: 'Analysis', href: '/analysis', isHash: false },
-    { label: 'Content', href: '#extensions', isHash: true },
+    { label: 'Digital', href: '#extensions', isHash: true },
     { label: 'Contact', href: '#contact', isHash: true },
   ];
 
@@ -39,16 +41,18 @@ export default function Nav() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.2, 0.8, 0.2, 1] }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'py-3 sm:py-4' : 'py-4 sm:py-6'
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled ? 'py-3 sm:py-4' : 'py-4 sm:py-6'
+      }`}
     >
       <div className="max-w-6xl mx-auto px-3 sm:px-6">
         <div
-          className={`flex items-center justify-between rounded-2xl px-3 py-2.5 sm:px-6 sm:py-3 transition-all duration-300 ${scrolled ? 'glass-panel' : 'bg-transparent'
-            }`}
+          className={`flex items-center justify-between rounded-2xl px-3 py-2.5 sm:px-6 sm:py-3 transition-all duration-300 ${
+            scrolled ? 'glass-panel' : 'bg-transparent'
+          }`}
         >
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 min-[950px]:gap-3 group">
+          <Link to="/#" onClick={handleLogoClick} className="flex items-center gap-2 min-[950px]:gap-3 group">
             <img src="/favicon.svg" className="w-8 h-8 min-[950px]:w-9 min-[950px]:h-9 filter drop-shadow-[0_0_8px_rgba(0,242,254,0.25)] group-hover:drop-shadow-[0_0_12px_rgba(0,242,254,0.5)] transition-all duration-300 flex-shrink-0" alt="Logo" />
             <div className="flex flex-col items-start leading-none min-[950px]:flex-row min-[950px]:items-center gap-0.5 min-[950px]:gap-1.5">
               <span className="font-mono text-xs min-[950px]:text-sm lg:text-base font-bold tracking-tight text-white group-hover:text-glow transition-all duration-300">
@@ -97,7 +101,7 @@ export default function Nav() {
             </button>
           </nav>
 
-          {/* Mobile Menu Toggle & Theme Toggle */}
+          {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-4">
             <button
               onClick={toggleTheme}
@@ -135,9 +139,7 @@ export default function Nav() {
                 hidden: { opacity: 0 },
                 show: {
                   opacity: 1,
-                  transition: {
-                    staggerChildren: 0.05
-                  }
+                  transition: { staggerChildren: 0.05 }
                 }
               }}
               className="flex flex-col p-3 gap-1"
