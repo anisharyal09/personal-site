@@ -20,7 +20,7 @@ const channels = [
   },
 ];
 
-const interests = ['Listening to Music', 'Travel', 'μControllers', 'A.I.', 'Editing', 'ML'];
+const interests = ['Listening to Music', 'Travel', 'μControllers', 'AI', 'Editing', 'ML'];
 
 export default function Extensions() {
   const featured = channels.find(c => c.featured);

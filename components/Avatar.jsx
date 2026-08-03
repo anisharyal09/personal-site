@@ -2,13 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Send, CheckCircle2, X, MessageCircle } from 'lucide-react';
 import { supabase } from '../src/utils/supabaseClient';
-import heroImg from '../src/assets/hero.webp';
 
 export default function Avatar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isDismissed, setIsDismissed] = useState(false);
-  const [isFooterVisible, setIsFooterVisible] = useState(false);
-  const [isContactVisible, setIsContactVisible] = useState(false);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState('idle');
 
@@ -39,42 +35,14 @@ export default function Avatar() {
 
   useEffect(() => {
     const openComms = () => {
-      setIsDismissed(false);
       setIsOpen(true);
     };
     window.addEventListener('open-direct-comms', openComms);
     return () => window.removeEventListener('open-direct-comms', openComms);
   }, []);
 
-  useEffect(() => {
-    const contact = document.querySelector('#contact');
-    if (!contact) return undefined;
-    const observer = new IntersectionObserver(([entry]) => setIsContactVisible(entry.isIntersecting), {
-      threshold: 0.2,
-    });
-    observer.observe(contact);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const footer = document.querySelector('footer');
-    if (!footer) return undefined;
-    const observer = new IntersectionObserver(([entry]) => setIsFooterVisible(entry.isIntersecting), {
-      threshold: 0.2,
-    });
-    observer.observe(footer);
-    return () => observer.disconnect();
-  }, []);
-
-  const dismiss = (event) => {
-    event.stopPropagation();
-    setIsOpen(false);
-    setIsDismissed(true);
-  };
-
   return (
-    <div className={`fixed right-6 z-[90] flex flex-col items-end transition-all duration-200 ${isFooterVisible ? 'bottom-20' : 'bottom-6'}`}>
-      
+    <div className="fixed right-6 bottom-6 z-[90] flex flex-col items-end">
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -91,6 +59,7 @@ export default function Avatar() {
               <button 
                 onClick={() => setIsOpen(false)}
                 className="text-gray-500 hover:text-white transition-colors"
+                aria-label="Close Direct COMMS"
               >
                 <X size={16} />
               </button>
@@ -148,66 +117,17 @@ export default function Avatar() {
         )}
       </AnimatePresence>
 
-      {isFooterVisible || isContactVisible ? (
-        <button
-          type="button"
-          onClick={() => setIsOpen(true)}
-          aria-label="Open Direct COMMS"
-          title="Open Direct COMMS"
-          className="grid h-11 w-11 place-items-center rounded-full border border-electric/30 bg-black/75 text-electric shadow-xl backdrop-blur-md transition-colors hover:bg-black cursor-pointer"
-        >
-          <MessageCircle size={17} />
-        </button>
-      ) : isDismissed ? (
-        <button
-          type="button"
-          onClick={() => setIsDismissed(false)}
-          aria-label="Restore Direct COMMS"
-          title="Open Direct COMMS"
-          className="grid h-11 w-11 place-items-center rounded-full border border-electric/30 bg-black/70 text-electric shadow-xl backdrop-blur-md transition-colors hover:bg-black cursor-pointer"
-        >
-          <MessageCircle size={17} />
-        </button>
-      ) : (
-        <div
-          role="button"
-          tabIndex={0}
-          aria-label="Open Direct COMMS"
-          onClick={() => setIsOpen(!isOpen)}
-          onKeyDown={(event) => event.key === 'Enter' && setIsOpen(!isOpen)}
-          className="group relative flex items-center gap-3 rounded-full border border-white/10 bg-black/60 py-2 pl-2 pr-9 shadow-2xl backdrop-blur-md transition-colors hover:border-electric/50 cursor-pointer"
-        >
-          <button
-            type="button"
-            aria-label="Dismiss Direct COMMS"
-            title="Hide Direct COMMS"
-            onClick={dismiss}
-            className="absolute right-2 top-2 z-10 grid h-4 w-4 place-items-center rounded-full text-gray-500 opacity-0 transition-all hover:bg-white/10 hover:text-white group-hover:opacity-100 focus:opacity-100 cursor-pointer"
-          >
-            <X size={11} />
-          </button>
-          <div className="relative z-[1] w-10 h-10 rounded-full overflow-hidden border border-electric/30 p-0.5 bg-black">
-            <img
-              src={heroImg}
-              alt="Anish Aryal"
-              className="w-full h-full object-cover rounded-full filter grayscale group-hover:grayscale-0 transition-all duration-300"
-              width="40"
-              height="40"
-              decoding="async"
-            />
-          </div>
-          <div className="relative z-[1] flex flex-col text-left">
-            <span className="text-[10px] font-mono text-gray-400 uppercase tracking-widest leading-none mb-1 flex items-center gap-1 group-hover:text-electric transition-colors">
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>
-              NETWORK
-            </span>
-            <div className="flex items-center gap-1.5">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.8)]"></div>
-              <span className="text-xs font-mono text-green-400 font-bold leading-none">STATUS: ONLINE</span>
-            </div>
-          </div>
-        </div>
-      )}
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        aria-label="Open Direct COMMS"
+        title="Open Direct COMMS"
+        className="grid h-11 w-11 place-items-center rounded-full border border-electric/30 bg-black/75 text-electric shadow-xl backdrop-blur-md transition-colors hover:bg-black cursor-pointer"
+      >
+        <MessageCircle size={17} />
+      </button>
     </div>
   );
 }
+
+

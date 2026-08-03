@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Github, Monitor, Smartphone, Cpu, Puzzle, Download, ArrowRight, X } from 'lucide-react';
-import feedFreeIcon from '../src/assets/icon.webp';
+import feedFreeIcon from '../src/assets/feed-free-icon.webp';
 import aniAuthIcon from '../src/assets/aniauth-icon.webp';
 
 const ChromeLogo = () => (

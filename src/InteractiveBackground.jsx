@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 export default function InteractiveBackground() {
@@ -7,10 +7,32 @@ export default function InteractiveBackground() {
   const rocketRef = useRef(null);
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const [isFinePointer, setIsFinePointer] = useState(() =>
+    typeof window !== 'undefined' ? window.matchMedia('(pointer: fine)').matches : true
+  );
 
   useEffect(() => {
-    // Hide default cursor on homepage so rocket acts as the sole cursor
-    if (isHomePage) {
+    const finePointer = window.matchMedia('(pointer: fine)');
+    const updatePointer = () => setIsFinePointer(finePointer.matches);
+
+    if (finePointer.addEventListener) {
+      finePointer.addEventListener('change', updatePointer);
+    } else if (finePointer.addListener) {
+      finePointer.addListener(updatePointer);
+    }
+
+    return () => {
+      if (finePointer.removeEventListener) {
+        finePointer.removeEventListener('change', updatePointer);
+      } else if (finePointer.removeListener) {
+        finePointer.removeListener(updatePointer);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    // Hide default cursor on homepage for fine pointer devices only
+    if (isHomePage && isFinePointer) {
       document.body.classList.add('hide-default-cursor');
     } else {
       document.body.classList.remove('hide-default-cursor');
@@ -19,7 +41,7 @@ export default function InteractiveBackground() {
     return () => {
       document.body.classList.remove('hide-default-cursor');
     };
-  }, [isHomePage]);
+  }, [isHomePage, isFinePointer]);
 
   useEffect(() => {
     const background = backgroundRef.current;
@@ -39,6 +61,7 @@ export default function InteractiveBackground() {
     let lastX = mouseX;
     let lastY = mouseY;
     let angle = 0;
+    let hasMoved = false;
 
     const particles = [];
     const maxParticles = 35;
@@ -120,7 +143,7 @@ export default function InteractiveBackground() {
         }
       }
 
-      if (rocketRef.current && isHomePage) {
+      if (rocketRef.current && isHomePage && finePointer.matches && hasMoved) {
         rocketRef.current.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0) rotate(${angle}rad)`;
       }
 
@@ -144,6 +167,15 @@ export default function InteractiveBackground() {
       if (reducedMotion.matches || !finePointer.matches) return;
       mouseX = e.clientX;
       mouseY = e.clientY;
+      if (!hasMoved) {
+        hasMoved = true;
+        if (backgroundRef.current) {
+          backgroundRef.current.classList.add('pointer-active');
+        }
+        if (rocketRef.current) {
+          rocketRef.current.style.opacity = '0.9';
+        }
+      }
     };
 
     window.addEventListener('pointermove', handlePointerMove, { passive: true });
@@ -152,6 +184,9 @@ export default function InteractiveBackground() {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('pointermove', handlePointerMove);
+      if (backgroundRef.current) {
+        backgroundRef.current.classList.remove('pointer-active');
+      }
       if (animId) cancelAnimationFrame(animId);
     };
   }, [isHomePage]);
@@ -168,7 +203,7 @@ export default function InteractiveBackground() {
           zIndex: 9998,
         }}
       />
-      {isHomePage && (
+      {isHomePage && isFinePointer && (
         <div
           ref={rocketRef}
           className="homepage-rocket-cursor"
@@ -183,7 +218,7 @@ export default function InteractiveBackground() {
             pointerEvents: 'none',
             zIndex: 9999,
             transition: 'opacity 0.3s ease',
-            opacity: 0.9,
+            opacity: 0,
           }}
         >
           <svg viewBox="0 0 24 24" fill="none" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,229,255,0.7)]">
@@ -207,5 +242,6 @@ export default function InteractiveBackground() {
     </div>
   );
 }
+
 
 
