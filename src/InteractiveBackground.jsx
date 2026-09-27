@@ -192,7 +192,13 @@ export default function InteractiveBackground() {
   }, [isHomePage]);
 
   return (
-    <div ref={backgroundRef} className="ambient-background" aria-hidden="true">
+    <>
+      <div ref={backgroundRef} className="ambient-background" aria-hidden="true">
+        <div className="ambient-cursor-trail ambient-cursor-trail-far" />
+        <div className="ambient-cursor-trail ambient-cursor-trail-near" />
+        <div className="ambient-cursor-glow" />
+      </div>
+
       <canvas
         ref={canvasRef}
         className="soft-cursor-canvas"
@@ -202,6 +208,7 @@ export default function InteractiveBackground() {
           pointerEvents: 'none',
           zIndex: 9998,
         }}
+        aria-hidden="true"
       />
       {isHomePage && isFinePointer && (
         <div
@@ -220,6 +227,7 @@ export default function InteractiveBackground() {
             transition: 'opacity 0.3s ease',
             opacity: 0,
           }}
+          aria-hidden="true"
         >
           <svg viewBox="0 0 24 24" fill="none" className="w-full h-full drop-shadow-[0_0_10px_rgba(0,229,255,0.7)]">
             <path
@@ -236,10 +244,7 @@ export default function InteractiveBackground() {
           </svg>
         </div>
       )}
-      <div className="ambient-cursor-trail ambient-cursor-trail-far" />
-      <div className="ambient-cursor-trail ambient-cursor-trail-near" />
-      <div className="ambient-cursor-glow" />
-    </div>
+    </>
   );
 }
 

@@ -11,7 +11,7 @@ export default function Error404() {
           The requested system pathway does not exist.
         </p>
         <p className="text-gray-500 mb-8 font-mono text-sm">
-          Maybe visit my <a href="https://www.youtube.com/@empowermenttechspace" target="_blank" rel="noopener noreferrer" className="text-electric hover:underline">YouTube</a> instead? hehe
+          Maybe visit my <a href="https://www.youtube.com/@empowermenttechspace" target="_blank" rel="noopener" className="text-electric hover:underline">YouTube</a> instead? hehe
         </p>
         <Link to="/" className="inline-flex items-center gap-2 text-sm font-medium px-6 py-3 rounded-full bg-white text-dark hover:bg-electric transition-colors">
           Return to Hub

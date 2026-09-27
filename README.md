@@ -1,76 +1,73 @@
-# ⚡ ANISH SYS.
+## ⚡ ANISH SYS.
 
-> **Status:** Active  
-> **Live:** https://anisharyal09.com.np
+> **Live:** [anisharyal09.com.np](https://anisharyal09.com.np)
 
-A personal portfolio system built with **React**, **Vite**, **Tailwind CSS**, and **Supabase**.  
-Focused on a clean, modern, and minimalistic "glassy UI" with robust functionality.
+A clean, modern personal portfolio built with **React**, **Vite**, **Tailwind CSS**, and **Supabase**. Focused on a minimalistic glassy aesthetic with smooth interactions.
 
 ---
 
-## 🧱 Tech Stack
+### 🧱 Tech Stack
 
-- **Architecture:** Modular Single Page Application (SPA)
+- **Architecture:** Single Page Application (SPA)
 - **Frontend:** React 18 + Vite
-- **Styling:** Tailwind CSS + Vanilla CSS Variables (Dark/Light Theme)
-- **Animations:** Framer Motion
-- **Backend:** Supabase
+- **Styling:** Tailwind CSS + CSS Variables (Dark / Light mode)
+- **Animations:** Framer Motion + HTML5 Canvas
+- **Backend:** Supabase (Contact form & RLS)
 - **Icons:** Lucide React
 
-## 🧩 Core Sections & Features
+---
 
-### 🧠 Intro / Identity
-- Dynamic **typing effect** (regex-driven).
-- Clean, minimalistic layout with an interactive image that seamlessly integrates with the contact flow.
+### 🧩 Core Sections & Features
 
-### 🧪 Stack / Capabilities
-- Clear breakdown of skills.*
+#### 🧠 Intro
+- Dynamic typing text animation.
+- Hero layout with quick links and interactive profile card.
 
-### 💻 Projects
-- Clean card-based layout using glass panels.
+#### 💻 Projects
+- Card-based showcase for highlighted projects with detail preview popups.
 
-### 🎓 Education
-- **Collapsible UI:** Academic details are minimized by default to reduce visual noise and emphasize a sleek design.
+#### 🎓 Education
+- Collapsible section for academic info to keep things tidy (just to make it less explicit).
 
-### 📬 Contact / Collaborate
-- Unified contact section backed by **Supabase**.
-- Floating interactive **Avatar widget** that broadcasts online status and opens communication.
-- Real-time validation and database-level protection via Supabase policies (RLS).
+#### 🌐 Extensions
+- Digital presence and media channels.
 
-### 🎨 Theming
-- Native **Dark Mode** by default with built-in **Light Mode** support.
-- Interactive toggle in the navigation header that seamlessly switches global CSS variables.
+#### 📬 Contact
+- Working contact form connected to Supabase.
+- Floating quick message button in the bottom corner.
 
-### ❌ Custom Error Page
-- Dedicated `404` error / fallback page.
-- Gracefully handles unknown routes in the SPA structure.
+#### 🛠️ Creations (`/creations`)
+- Full catalog view listing all built apps, extensions, and tools.
 
-### 🔍 SEO & Assets
-- **Search Engine Optimization**: Implemented structured JSON-LD (Schema.org Person metadata), customized meta description, robots instructions, and Open Graph/Twitter card preview support.
-- **Sitemap & Search Indexing**: Automated `sitemap.xml` and `robots.txt` configuration for direct search engine discovery.
-- **Animated Icon**: Added custom, animated icon (`favicon.svg`) used consistently for browser favicon, Open Graph, and Twitter metadata configurations.
+#### 🎨 Theming & Background
+- Dark and Light mode toggle.
+- Interactive background with canvas smoke effect and custom cursor.
 
+#### ❌ Other
+- Custom 404 fallback page.
+- Basic SEO, metadata, and sitemap.
 
-## ⚙️ Local Setup
+> ...and a few moree.
 
-### 1. Clone & Install
+---
+
+### ⚙️ Getting Started
+
+#### 1. Clone & Install
 ```bash
 git clone https://github.com/anisharyal09/portfolio-site.git
-
 cd portfolio-site
-
 npm install
 ```
 
-### 2. Environment Variables
-
-Create a `.env` file in the project root:
-```
+#### 2. Environment Variables
+Create a `.env.local` file in the project root:
+```env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
-### 3. Run Development Server
+#### 3. Run Locally
 ```bash
 npm run dev
 ```

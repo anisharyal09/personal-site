@@ -41,7 +41,7 @@ export default function Intro() {
   return (
     <section className="relative w-full pt-32 pb-20 md:pt-40 md:pb-28 overflow-hidden" id="intro">
       <div className="max-w-6xl mx-auto px-3 sm:px-6 flex flex-col-reverse lg:flex-row items-center justify-between gap-8 lg:gap-14 relative z-10">
-        
+
         {/* Intro Text */}
         <motion.div
           initial={{ opacity: 0, y: 15 }}
@@ -59,7 +59,7 @@ export default function Intro() {
           </div>
 
           <p className="text-gray-300 text-sm sm:text-base font-light leading-relaxed mb-6">
-            2nd year Electronics, Communication & Information Engineering student at IOE, Pulchowk Campus, TU — basically exploring everything in software, systems, and design.
+            2nd year Electronics, Communication & Information Engineering student at IOE, Pulchowk Campus, TU — basically exploring everything in software, systems, design and beyond(just everything).
           </p>
 
           <div className="flex items-center justify-center lg:justify-start gap-3">
@@ -67,7 +67,7 @@ export default function Intro() {
               href="#projects"
               className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono bg-electric text-black font-semibold rounded-xl hover:bg-electric/90 transition-all cursor-pointer shadow-[0_0_15px_rgba(0,229,255,0.2)]"
             >
-              View Featured Work
+              Explore Featuring
               <ArrowRight size={14} />
             </a>
 

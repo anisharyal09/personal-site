@@ -43,7 +43,7 @@ export default function Extensions() {
                   key={c.name}
                   href={c.url}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   initial={{ opacity: 0, x: -15 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-50px" }}
@@ -81,7 +81,7 @@ export default function Extensions() {
                 <a
                   href={`https://youtu.be/${featured.videoId}`}
                   target="_blank"
-                  rel="noopener noreferrer"
+                  rel="noopener"
                   className="block relative rounded-2xl overflow-hidden glass-panel group aspect-video border border-white/10"
                 >
                   <img

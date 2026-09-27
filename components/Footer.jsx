@@ -31,7 +31,7 @@ export default function Footer() {
             </a>
           )}
           <div className="text-xs font-mono font-semibold text-gray-400 bg-white/5 hover:bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10 shadow-inner">
-            v3.1.0
+            v3.2.0
           </div>
         </div>
       </div>
