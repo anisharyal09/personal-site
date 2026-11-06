@@ -245,6 +245,36 @@
   contain-intrinsic-size: auto 44rem;
 }
 
+.creation-card-eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: 3px;
+}
+
+.creation-featured {
+  border-color: color-mix(in srgb, var(--color-electric) 48%, rgba(255, 255, 255, 0.12));
+  background-color: rgba(0, 229, 255, 0.035);
+  box-shadow: inset 3px 0 0 var(--color-electric), 0 0 0 1px rgba(0, 229, 255, 0.08);
+}
+
+.creation-featured-label {
+  padding: 2px 6px;
+  border: 1px solid color-mix(in srgb, var(--color-electric) 38%, transparent);
+  border-radius: 999px;
+  background-color: rgba(0, 229, 255, 0.07);
+  color: var(--color-electric);
+  font: 500 9px/13px 'Fira Code', monospace;
+  letter-spacing: 0.02em;
+}
+
+:root.light-mode-active .creation-featured {
+  border-color: color-mix(in srgb, var(--color-electric) 44%, rgba(15, 23, 42, 0.12));
+  background-color: rgba(2, 132, 199, 0.035);
+  box-shadow: inset 3px 0 0 var(--color-electric), 0 0 0 1px rgba(2, 132, 199, 0.08);
+}
+
 .contact-panel {
   background: linear-gradient(135deg, rgba(0, 229, 255, 0.045), transparent 46%), rgba(255, 255, 255, 0.05);
 }

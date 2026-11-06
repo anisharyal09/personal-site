@@ -22,12 +22,12 @@ export default function Footer() {
         <div className="flex items-center gap-3">
           {isSupportPage && (
             <a
-              href="https://ko-fi.com/anisharyal09"
+              href="https://buymemomo.com/anisharyal09"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-full border border-[#FF5E5B]/30 bg-[#FF5E5B]/10 px-3.5 py-1.5 text-xs font-mono text-[#ff807d] transition-colors hover:bg-[#FF5E5B] hover:text-white"
+              className="inline-flex items-center gap-2 rounded-full border border-electric/30 bg-electric/10 px-3.5 py-1.5 text-xs font-mono text-electric transition-colors hover:bg-electric hover:text-black"
             >
-              <Coffee size={13} /> Support on Ko-fi
+              <Coffee size={13} /> Buy me momo
             </a>
           )}
           <div className="text-xs font-mono font-semibold text-gray-400 bg-white/5 hover:bg-white/10 px-3.5 py-1.5 rounded-full border border-white/10 shadow-inner">

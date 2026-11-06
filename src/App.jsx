@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 
 import Nav from '../components/Nav.jsx';
 import Intro from '../components/Intro.jsx';
@@ -12,6 +12,7 @@ import Avatar from '../components/Avatar.jsx';
 import InteractiveBackground from './InteractiveBackground.jsx';
 
 const Creations = lazy(() => import('../components/Creations.jsx'));
+const AniCePage = lazy(() => import('../components/AniCePage.jsx'));
 const Support = lazy(() => import('../components/Support.jsx'));
 const Error404 = lazy(() => import('../components/OtherComponents/Error404.jsx'));
 
@@ -35,6 +36,8 @@ const App = () => (
         <Suspense fallback={<div className="route-loader" aria-label="Loading page" />}>
           <Routes>
             <Route path="/" element={<HomeLayout />} />
+            <Route path="/anice" caseSensitive element={<AniCePage />} />
+            <Route path="/aniCe" caseSensitive element={<Navigate to="/anice" replace />} />
             <Route path="/creations" element={<Creations />} />
             <Route path="/support" element={<Support />} />
             <Route path="*" element={<Error404 />} />

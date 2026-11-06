@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Github, X, ArrowRight, ExternalLink, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import feedFreeIcon from '../src/assets/feed-free-icon.webp';
-import aniAuthIcon from '../src/assets/aniauth-icon.webp';
 
 const ChromeLogo = () => (
   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -18,6 +17,15 @@ const FirefoxLogo = () => (
 );
 
 const projects = [
+  {
+    name: 'aniCe',
+    type: 'Mac + Android',
+    description: 'Connect macOS and Android for two-way file sharing, keyboard and trackpad control, playback, clipboard, SMS, and device alerts.',
+    tags: ['macOS', 'Android', 'Local-first'],
+    status: 'Cross-device companion',
+    github: 'https://github.com/anisharyal09/aniCe',
+    page: '/anice',
+  },
   {
     name: 'Feed Free',
     type: 'Browser Extension',
@@ -36,26 +44,6 @@ const projects = [
         { name: 'Dynamic Audio Only Mode', desc: 'Black out video player (keep audio playing) with draggable floating toggle button and keyboard shortcut ("A").' },
         { name: 'Document Start Anti-Flicker', desc: 'Synchronous document_start anti-flicker style injection prevents layout flickering before page renders.' },
         { name: 'DOMPatron Observer', desc: 'URL polling and MutationObserver instantly detect Single-Page Application (SPA) navigations without requiring page reloads.' }
-      ]
-    }
-  },
-  {
-    name: 'aniAuth',
-    type: 'Android & Wear OS App',
-    description: 'Minimalist, secure, and aesthetic TOTP authenticator for Android smartphones and Wear OS smartwatches with wrist code syncing.',
-    tags: ['Kotlin', 'Jetpack Compose', 'Android KeyStore', 'Wear OS'],
-    status: 'Active',
-    github: 'https://github.com/anishcreations/aniAuth',
-    download: 'https://github.com/anishcreations/aniAuth/releases',
-    icon: aniAuthIcon,
-    details: {
-      tagline: 'Minimalist, local-first TOTP authenticator for Android and Wear OS.',
-      features: [
-        { name: 'Hardware-Backed Encryption', desc: 'Master AES-256 keys generated inside TEE/SE enclave via Android KeyStore.' },
-        { name: 'Wear OS Biometric Syncing', desc: 'Wirelessly transfer accounts to Wear OS over Bluetooth protected by biometrics.' },
-        { name: 'Duress PIN Protection', desc: 'Configurable watch duress PIN attempt limits that silently wipe watch data if exceeded.' },
-        { name: 'Zero Network Permission', desc: '100% offline app with zero network footprint for maximum privacy.' },
-        { name: 'Bitwarden & Universal Import', desc: 'Import Bitwarden JSON exports and standard otpauth:// URIs with auto re-encryption.' }
       ]
     }
   },
@@ -140,7 +128,9 @@ export default function Projects() {
                       <span className="font-mono text-xs text-electric uppercase tracking-wider block mb-0.5">
                         {project.type}
                       </span>
-                      <h3 className="text-xl font-bold text-white">{project.name}</h3>
+                      <h3 className="text-xl font-bold text-white">
+                        {project.name === 'aniCe' ? <>ani<span className="text-sky-400">Ce</span></> : project.name}
+                      </h3>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -220,7 +210,15 @@ export default function Projects() {
                   {project.status}
                 </span>
 
-                {project.details && (
+                {project.page ? (
+                  <Link
+                    to={project.page}
+                    className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200"
+                  >
+                    Explore aniCe
+                    <ArrowRight size={12} />
+                  </Link>
+                ) : project.details && (
                   <button
                     onClick={() => setSelectedProject(project)}
                     className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer"

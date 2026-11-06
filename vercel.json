@@ -1,7 +1,18 @@
 {
+  "redirects": [
+    {
+      "source": "/aniCe",
+      "destination": "/anice",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
-      "source": "/((?!assets/|favicon.svg|robots.txt|sitemap.xml).*)",
+      "source": "/anice",
+      "destination": "/anice.html"
+    },
+    {
+      "source": "/((?!assets/|favicon.svg|robots.txt|sitemap.xml|anice.html).*)",
       "destination": "/index.html"
     }
   ]

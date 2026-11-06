@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ExternalLink, Github, Monitor, Smartphone, Cpu, Puzzle, Download, ArrowRight, X } from 'lucide-react';
+import { ExternalLink, Github, Monitor, Smartphone, Cpu, Puzzle, Download, ArrowRight, ArrowLeftRight, X } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import feedFreeIcon from '../src/assets/feed-free-icon.webp';
 import aniAuthIcon from '../src/assets/aniauth-icon.webp';
+import nightyKeyboardIcon from '../src/assets/nighty-keyboard-icon.png';
+import notebookCompanionIcon from '../src/assets/notebook-companion-icon.png';
+import opacifyIcon from '../src/assets/opacify-icon.png';
+import ytAudioAirIcon from '../src/assets/yt-audio-air-icon.png';
+import ytVideoAirIcon from '../src/assets/yt-video-air-icon.png';
 
 const ChromeLogo = () => (
   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -17,6 +23,34 @@ const FirefoxLogo = () => (
 );
 
 const creationCategories = [
+  {
+    category: 'Cross-device',
+    icon: <ArrowLeftRight className="text-electric" size={20} />,
+    items: [
+      {
+        name: 'aniCe',
+        featured: true,
+        badge: 'macOS + Android',
+        page: '/anice',
+        desc: 'A local-first companion for file sharing and device control between Mac and Android.',
+        tech: ['Swift 6', 'Kotlin', 'Bluetooth LE', 'Direct LAN'],
+        github: 'https://github.com/anisharyal09/aniCe',
+        details: {
+          tagline: 'Connect a Mac and Android phone for sharing, control and everyday continuity.',
+          features: [
+            { name: 'Two-way file sharing', desc: 'Send files between Mac and Android, with receiver approval and resumable transfers.' },
+            { name: 'Control Mac from Android', desc: 'Use the phone keyboard and trackpad to type, click and scroll on the Mac.' },
+            { name: 'Control Android from Mac', desc: 'Use the Mac keyboard and trackpad with a paired Android phone.' },
+            { name: 'Now Playing', desc: 'Control supported Mac playback from Android.' },
+            { name: 'Clipboard and Quick Paste', desc: 'Share text and links, with optional local clipboard history and a searchable Mac tray.' },
+            { name: 'SMS on Mac', desc: 'Receive Android message notifications and reply from the Mac.' },
+            { name: 'Find Device', desc: 'Send a local alert to a paired phone or Mac; no location access is used.' },
+            { name: 'Private connections', desc: 'Pairing-approved, encrypted Bluetooth LE sessions with optional direct LAN; no cloud accounts or telemetry.' },
+          ],
+        },
+      },
+    ],
+  },
   {
     category: 'Mobile & Wearables',
     icon: <Smartphone className="text-electric" size={20} />,
@@ -49,6 +83,7 @@ const creationCategories = [
     items: [
       {
         name: 'Feed Free',
+        featured: true,
         badge: 'Browser Extension',
         icon: feedFreeIcon,
         desc: 'Take control of YouTube & Instagram. Block algorithmic recommendations, Shorts, Reels, suggested content, and comments.',
@@ -68,8 +103,28 @@ const creationCategories = [
         }
       },
       {
+        name: 'Gemini Notebook Companion',
+        badge: 'Chrome & Firefox',
+        icon: notebookCompanionIcon,
+        desc: 'Keep NotebookLM beside your research in a sidebar, floating window, or page launcher.',
+        tech: ['JavaScript', 'WebExtensions API'],
+        github: 'https://github.com/anishcreations/gemini-notebook-companion',
+        chrome: 'https://chromewebstore.google.com/detail/gemini-notebook-companion/ifpblicljofapignfplfohmafefpikag',
+        firefox: 'https://addons.mozilla.org/en-US/firefox/addon/gemini-notebook-companion/',
+        details: {
+          tagline: 'Open your notebook in the browser sidebar, a reusable floating window, or from a page launcher.',
+          features: [
+            { name: 'Sidebar and floating window', desc: 'Open NotebookLM beside your current tab or in a movable, resizable window.' },
+            { name: 'Page launcher and shortcuts', desc: 'Open the companion from a draggable page button or keyboard shortcut.' },
+            { name: 'Saved notebook and account', desc: 'Keep your notebook link and selected Google account in local browser storage.' },
+            { name: 'Chrome and Firefox', desc: 'Install from either browser’s extension store. No API key or developer backend.' },
+          ],
+        },
+      },
+      {
         name: 'Opacify',
         badge: 'Browser Extension',
+        icon: opacifyIcon,
         desc: 'Dim bright screens, tutorials, PDFs, and videos with a per-tab opacity overlay, brightness boost, or smart color invert filter.',
         tech: ['JavaScript', 'CSS3', 'WebExtensions API'],
         github: 'https://github.com/anishcreations/opacify',
@@ -91,8 +146,41 @@ const creationCategories = [
     icon: <Monitor className="text-electric" size={20} />,
     items: [
       {
+        name: 'Nighty Keyboard',
+        featured: true,
+        badge: 'macOS Menu Bar',
+        icon: nightyKeyboardIcon,
+        desc: 'Dim built-in Mac keyboards below macOS’s minimum brightness, with seven experimental levels.',
+        tech: ['Swift', 'AppKit', 'Objective-C'],
+        github: 'https://github.com/anishcreations/nighty-keyboard',
+        details: {
+          tagline: 'A menu bar app for built-in backlit keyboards. Deeper dimming is experimental and uses private macOS controls.',
+          features: [
+            { name: 'Seven lower brightness levels', desc: 'Set brightness with the dial or slider, then click the center to turn the backlight off.' },
+            { name: 'Pause and resume', desc: 'Lighting pauses when the Mac is idle, asleep, or locked, then resumes at the saved level.' },
+            { name: 'Compatibility', desc: 'Built-in backlit keyboards only. The darkest levels may pulse; Intel support is not hardware-verified.' },
+          ],
+        },
+      },
+      {
+        name: 'aniKey',
+        badge: 'macOS · Unreleased',
+        desc: 'Use your Mac keyboard and pointer with a paired Android phone over Bluetooth.',
+        tech: ['Objective-C', 'AppKit', 'IOBluetooth'],
+        github: 'https://github.com/anisharyal09/aniKey',
+        details: {
+          tagline: 'A Bluetooth keyboard and mouse for Android, with a desktop app and command-line tools. macOS 13+; unreleased.',
+          features: [
+            { name: 'Keyboard and clipboard', desc: 'Type from your Mac or send plain text from its clipboard.' },
+            { name: 'Pointer and navigation', desc: 'Move, click, drag, and scroll from the control pad, with Back, Home, and Recents buttons.' },
+            { name: 'Desktop app and CLI', desc: 'Connect through the app or send text and key commands from a terminal.' },
+          ],
+        },
+      },
+      {
         name: 'YT Audio Air',
         badge: 'macOS Menu Bar',
+        icon: ytAudioAirIcon,
         desc: 'Native macOS menu bar app for resource-efficient background YouTube audio streaming with minimal RAM footprint.',
         tech: ['Swift 5', 'AppKit', 'WKWebView'],
         github: 'https://github.com/anishcreations/yt-audio-air',
@@ -111,6 +199,7 @@ const creationCategories = [
       {
         name: 'YT Video Air',
         badge: 'macOS Utility',
+        icon: ytVideoAirIcon,
         desc: 'Native macOS menu bar app wrapping YouTube Mobile into a lightweight, distraction-free popover video player.',
         tech: ['Swift 5.9', 'SwiftUI', 'WKWebView'],
         github: 'https://github.com/anishcreations/yt-video-air',
@@ -195,7 +284,7 @@ export default function Creations() {
                 {cat.items.map((item) => (
                   <div
                     key={item.name}
-                    className="glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between"
+                    className={`glass-panel glass-panel-hover rounded-2xl p-6 flex flex-col justify-between${item.featured ? ' creation-featured' : ''}`}
                   >
                     <div>
                       <div className="flex items-start justify-between mb-3">
@@ -204,9 +293,10 @@ export default function Creations() {
                             <img src={item.icon} className="w-10 h-10 rounded-xl flex-shrink-0 object-cover" alt={item.name} width="40" height="40" loading="lazy" decoding="async" />
                           )}
                           <div>
-                            <span className="font-mono text-xs text-electric uppercase tracking-wider block mb-0.5">
-                              {item.badge}
-                            </span>
+                            <div className="creation-card-eyebrow">
+                              <span className="font-mono text-xs text-electric uppercase tracking-wider">{item.badge}</span>
+                              {item.featured && <span className="creation-featured-label">Featured</span>}
+                            </div>
                             <h3 className="text-lg font-bold text-white mb-1">
                               {item.name}
                             </h3>
@@ -294,6 +384,15 @@ export default function Creations() {
                           Details & Features
                           <ArrowRight size={12} />
                         </button>
+                        {item.page && (
+                          <Link
+                            to={item.page}
+                            className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white transition-colors"
+                          >
+                            Explore aniCe
+                            <ArrowRight size={12} />
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -357,6 +456,14 @@ function CreationModal({ item, onClose }) {
         </p>
 
         <div className="flex flex-wrap items-center gap-2 mb-6">
+          {item.page && (
+            <Link
+              to={item.page}
+              className="flex items-center gap-2 px-3.5 py-2 text-xs font-mono bg-white/5 hover:bg-white/10 text-gray-200 rounded-xl border border-white/10 transition-colors"
+            >
+              Explore aniCe <ArrowRight size={14} />
+            </Link>
+          )}
           {item.download && (
             <a
               href={item.download}

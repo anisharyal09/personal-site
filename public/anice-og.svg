@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0a0c"/>
+  <text x="64" y="104" fill="#f1f3f4" font-family="Arial,sans-serif" font-size="34" font-weight="600">ani<tspan fill="#00e5ff">Ce</tspan></text>
+  <text x="64" y="148" fill="#879398" font-family="Arial,sans-serif" font-size="18">macOS · Android</text>
+  <path d="M64 188h1072" stroke="#ffffff" stroke-opacity=".12"/>
+  <text x="64" y="284" fill="#f1f3f4" font-family="Arial,sans-serif" font-size="52" font-weight="500">File sharing and control</text>
+  <text x="64" y="348" fill="#f1f3f4" font-family="Arial,sans-serif" font-size="52" font-weight="500">for Mac and Android</text>
+  <text x="64" y="420" fill="#b7c0c4" font-family="Arial,sans-serif" font-size="21">Transfer both ways · control either device · playback · clipboard · SMS</text>
+  <text x="64" y="492" fill="#879398" font-family="Arial,sans-serif" font-size="18">Bluetooth LE · direct local network · open source</text>
+  <text x="64" y="558" fill="#879398" font-family="Arial,sans-serif" font-size="16">GPL-3.0-or-later · no cloud accounts or external relays</text>
+</svg>
