@@ -1,3 +1,6 @@
+const ANICE_VERSION = '0.9.0-beta.3';
+const ANICE_RELEASES = 'https://github.com/anisharyal09/aniCe/releases';
+
 export const ANICE = {
   name: 'aniCe',
   tagline: 'Seamless continuity between Android and Mac.',
@@ -5,13 +8,17 @@ export const ANICE = {
   metadataDescription: 'aniCe connects Android and Mac for files, clipboard, device control, notifications and SMS over encrypted Bluetooth and LAN. Free, native and open source.',
   website: 'https://anisharyal09.github.io/web-anice/',
   repository: 'https://github.com/anisharyal09/aniCe',
-  releases: 'https://github.com/anisharyal09/aniCe/releases',
+  releases: ANICE_RELEASES,
+  downloads: {
+    android: `${ANICE_RELEASES}/download/v${ANICE_VERSION}/aniCe-android.apk`,
+    mac: `${ANICE_RELEASES}/download/v${ANICE_VERSION}/aniCe-mac.zip`,
+  },
   installGuide: 'https://anisharyal09.github.io/web-anice/guides/first-installation-permissions.html',
   preview: 'https://anisharyal09.github.io/web-anice/simulator/',
   page: '/anice',
   support: '/support?from=anice',
   status: 'Public beta',
-  version: '0.9.0-beta.3',
+  version: ANICE_VERSION,
   releaseNote: 'Beta builds are available for Mac and Android. aniCe is still being tested ahead of a general release.',
   tech: ['Swift 6 / SwiftUI', 'Kotlin / Compose', 'Rust', 'Objective-C', 'BLE + LAN'],
   requirements: {

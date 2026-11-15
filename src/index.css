@@ -15,6 +15,7 @@
 }
 
 :root.light-mode-active {
+  color-scheme: light;
   --color-dark: #f8fafc; /* Lighter slate gray background */
   --color-darker: #ffffff;
   --color-electric: #0284c7; /* Darker blue for contrast */
@@ -69,6 +70,10 @@
 
 @layer base {
   :root {
+    color-scheme: light dark;
+  }
+
+  :root[data-theme="dark"] {
     color-scheme: dark;
   }
   
@@ -355,5 +360,4 @@
     cursor: none !important;
   }
 }
-
 

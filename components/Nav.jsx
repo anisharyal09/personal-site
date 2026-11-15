@@ -1,18 +1,66 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
+import { Menu, X, Monitor, Moon, Sun } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
+import { applyTheme, normalizeThemePreference, readThemePreference, resolveTheme, saveThemePreference, THEME_MEDIA_QUERY, THEME_STORAGE_KEY } from '../src/utils/theme.js';
+
+function ThemeSelect({ preference, darkMode, onChange }) {
+  const Icon = preference === 'system' ? Monitor : darkMode ? Moon : Sun;
+
+  return (
+    <label className="inline-flex items-center gap-2 rounded-xl border border-white/20 bg-white/5 px-2.5 py-1.5 transition-colors hover:border-electric focus-within:border-electric">
+      <Icon size={14} className="text-gray-300" aria-hidden="true" />
+      <select
+        value={preference}
+        onChange={(event) => onChange(event.target.value)}
+        aria-label="Theme preference"
+        title={`Theme: ${preference} (currently ${darkMode ? 'dark' : 'light'})`}
+        className="cursor-pointer bg-transparent text-xs text-gray-300 focus:outline-none"
+      >
+        <option value="system">System</option>
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+      </select>
+    </label>
+  );
+}
 
 export default function Nav() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [darkMode, setDarkMode] = useState(true);
+  const [themePreference, setThemePreference] = useState(readThemePreference);
+  const [systemDark, setSystemDark] = useState(() => window.matchMedia(THEME_MEDIA_QUERY).matches);
+  const darkMode = resolveTheme(themePreference, systemDark) === 'dark';
   const location = useLocation();
 
-  const toggleTheme = () => {
-    setDarkMode(!darkMode);
-    document.documentElement.classList.toggle('light-mode-active');
+  const changeTheme = (preference) => {
+    const normalized = normalizeThemePreference(preference);
+    saveThemePreference(normalized);
+    setThemePreference(normalized);
   };
+
+  useLayoutEffect(() => {
+    applyTheme(themePreference, systemDark);
+  }, [themePreference, systemDark]);
+
+  useEffect(() => {
+    const media = window.matchMedia(THEME_MEDIA_QUERY);
+    const handleSystemTheme = (event) => setSystemDark(event.matches);
+    const handleStoredTheme = (event) => {
+      if (event.key === THEME_STORAGE_KEY || event.key === null) {
+        setThemePreference(normalizeThemePreference(event.newValue));
+      }
+    };
+
+    setSystemDark(media.matches);
+    media.addEventListener('change', handleSystemTheme);
+    window.addEventListener('storage', handleStoredTheme);
+
+    return () => {
+      media.removeEventListener('change', handleSystemTheme);
+      window.removeEventListener('storage', handleStoredTheme);
+    };
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -90,28 +138,12 @@ export default function Nav() {
               )
             ))}
 
-            <button
-              onClick={toggleTheme}
-              className="ml-2 w-10 h-5 rounded-full bg-white/10 flex items-center p-0.5 border border-white/20 transition-colors hover:border-electric relative"
-              title="Toggle Theme"
-            >
-              <div className={`w-4 h-4 rounded-full bg-white flex items-center justify-center transition-transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`}>
-                {darkMode ? <Moon size={10} className="text-black" /> : <Sun size={10} className="text-black" />}
-              </div>
-            </button>
+            <ThemeSelect preference={themePreference} darkMode={darkMode} onChange={changeTheme} />
           </nav>
 
           {/* Mobile Menu Toggle */}
           <div className="md:hidden flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="w-10 h-5 rounded-full bg-white/10 flex items-center p-0.5 border border-white/20 transition-colors hover:border-electric relative"
-              title="Toggle Theme"
-            >
-              <div className={`w-4 h-4 rounded-full bg-white flex items-center justify-center transition-transform duration-300 ${darkMode ? 'translate-x-5' : 'translate-x-0'}`}>
-                {darkMode ? <Moon size={10} className="text-black" /> : <Sun size={10} className="text-black" />}
-              </div>
-            </button>
+            <ThemeSelect preference={themePreference} darkMode={darkMode} onChange={changeTheme} />
             <button
               className="text-gray-400 hover:text-white transition-colors"
               onClick={() => setMenuOpen(!menuOpen)}

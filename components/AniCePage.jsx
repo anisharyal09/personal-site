@@ -197,26 +197,36 @@ export default function AniCePage() {
           <h2 id="anice-download-title" className="text-lg font-bold text-white">Get aniCe</h2>
           <p className="mt-3 text-xs font-mono text-electric">{ANICE.status} · v{ANICE.version}</p>
           <p className="mt-2 text-sm leading-relaxed text-gray-400">{ANICE.releaseNote}</p>
-          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+          <div className="mt-5 grid gap-4 sm:grid-cols-2">
             <div>
-              <dt className="text-xs font-mono text-gray-300">Mac</dt>
-              <dd className="mt-1 text-xs leading-relaxed text-gray-400">{ANICE.requirements.mac}</dd>
+              <a href={ANICE.downloads.android} aria-describedby="anice-android-requirements" className="flex items-center justify-between gap-3 rounded-xl bg-electric px-4 py-3 text-xs font-mono font-semibold text-black transition-colors hover:bg-electric/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-electric">
+                <span className="inline-flex items-center gap-2">
+                  <Smartphone size={16} aria-hidden="true" /> Download Android APK
+                </span>
+                <Download size={16} aria-hidden="true" />
+              </a>
+              <p id="anice-android-requirements" className="mt-2 text-xs leading-relaxed text-gray-400">{ANICE.requirements.android}</p>
             </div>
             <div>
-              <dt className="text-xs font-mono text-gray-300">Android</dt>
-              <dd className="mt-1 text-xs leading-relaxed text-gray-400">{ANICE.requirements.android}</dd>
+              <a href={ANICE.downloads.mac} aria-describedby="anice-mac-requirements" className="flex items-center justify-between gap-3 rounded-xl bg-electric px-4 py-3 text-xs font-mono font-semibold text-black transition-colors hover:bg-electric/90 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-electric">
+                <span className="inline-flex items-center gap-2">
+                  <Monitor size={16} aria-hidden="true" /> Download Mac ZIP
+                </span>
+                <Download size={16} aria-hidden="true" />
+              </a>
+              <p id="anice-mac-requirements" className="mt-2 text-xs leading-relaxed text-gray-400">{ANICE.requirements.mac}</p>
             </div>
-          </dl>
+          </div>
           <p className="mt-5 text-xs text-gray-400">Install on Mac with Homebrew:</p>
           <code className="mt-2 block break-all rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-gray-200">
             brew install anisharyal09/tap/anice
           </code>
           <div className="mt-5 flex flex-wrap gap-3">
-            <a href={ANICE.releases} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-electric/30 px-4 py-2.5 text-xs font-mono text-electric transition-colors hover:border-electric hover:text-white">
-              <Download size={14} /> Download beta builds
-            </a>
             <a href={ANICE.installGuide} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
-              Installation & permissions <ArrowUpRight size={14} />
+              First installation guide <ArrowUpRight size={14} />
+            </a>
+            <a href={ANICE.releases} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-electric/30 px-4 py-2.5 text-xs font-mono text-electric transition-colors hover:border-electric hover:text-white">
+              View release on GitHub <ArrowUpRight size={14} />
             </a>
             <a href={ANICE.preview} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
               Browser preview <ArrowUpRight size={14} />
