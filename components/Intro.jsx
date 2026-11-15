@@ -64,10 +64,10 @@ export default function Intro() {
 
           <div className="flex items-center justify-center lg:justify-start gap-3">
             <a
-              href="#projects"
+              href="#contact"
               className="inline-flex items-center gap-2 px-4 py-2.5 text-xs font-mono bg-electric text-black font-semibold rounded-xl hover:bg-electric/90 transition-all cursor-pointer shadow-[0_0_15px_rgba(0,229,255,0.2)]"
             >
-              Explore Featuring
+              Contact
               <ArrowRight size={14} />
             </a>
 

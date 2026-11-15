@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Github, X, ArrowRight, ExternalLink, Download } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import feedFreeIcon from '../src/assets/feed-free-icon.webp';
+import { ANICE } from '../src/data/anice.js';
 
 const ChromeLogo = () => (
   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -18,13 +19,16 @@ const FirefoxLogo = () => (
 
 const projects = [
   {
-    name: 'aniCe',
-    type: 'Mac + Android',
-    description: 'Connect macOS and Android for two-way file sharing, keyboard and trackpad control, playback, clipboard, SMS, and device alerts.',
-    tags: ['macOS', 'Android', 'Local-first'],
-    status: 'Cross-device companion',
-    github: 'https://github.com/anisharyal09/aniCe',
-    page: '/anice',
+    name: ANICE.name,
+    type: 'macOS + Android',
+    description: ANICE.description,
+    tags: ANICE.tech,
+    status: ANICE.status,
+    github: ANICE.repository,
+    download: ANICE.releases,
+    downloadLabel: 'Download beta builds',
+    website: ANICE.website,
+    page: ANICE.page,
   },
   {
     name: 'Feed Free',
@@ -173,7 +177,7 @@ export default function Projects() {
                         target="_blank"
                         rel="noopener"
                         className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-                        title="Download Releases"
+                        title={project.downloadLabel || 'Download Releases'}
                       >
                         <Download size={16} />
                       </a>
@@ -205,28 +209,39 @@ export default function Projects() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-4 border-t border-white/10">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-white/10">
                 <span className="text-xs font-mono text-gray-400">
                   {project.status}
                 </span>
 
-                {project.page ? (
-                  <Link
-                    to={project.page}
-                    className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200"
-                  >
-                    Explore aniCe
-                    <ArrowRight size={12} />
-                  </Link>
-                ) : project.details && (
-                  <button
-                    onClick={() => setSelectedProject(project)}
-                    className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer"
-                  >
-                    Details
-                    <ArrowRight size={12} />
-                  </button>
-                )}
+                <div className="flex flex-wrap items-center gap-3">
+                  {project.page && (
+                    <Link
+                      to={project.page}
+                      className="flex items-center gap-1.5 text-xs font-mono text-gray-400 hover:text-electric transition-colors"
+                    >
+                      Overview <ArrowRight size={12} />
+                    </Link>
+                  )}
+                  {project.website ? (
+                    <a
+                      href={project.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200"
+                    >
+                      Visit website <ExternalLink size={12} />
+                    </a>
+                  ) : project.details && (
+                    <button
+                      onClick={() => setSelectedProject(project)}
+                      className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3.5 py-1.5 rounded-xl transition-all duration-200 cursor-pointer"
+                    >
+                      Details
+                      <ArrowRight size={12} />
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}

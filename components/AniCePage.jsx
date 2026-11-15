@@ -1,59 +1,31 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Bell, Clipboard, Files, MessageSquare, Monitor, Music2, ShieldCheck, Smartphone } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight, Bell, Clipboard, Download, Files, Gauge, Keyboard, MessageSquare, Monitor, Moon, Music2, ShieldCheck, Smartphone } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { ANICE, ANICE_FEATURE_GROUPS, ANICE_SCHEMA_FEATURES } from '../src/data/anice.js';
 
-const REPOSITORY = 'https://github.com/anisharyal09/aniCe';
 const PAGE_TITLE = 'aniCe — Mac and Android, connected';
-const DESCRIPTION = 'aniCe connects macOS and Android for file sharing, device control, playback, clipboard, SMS and Find Device over encrypted local connections.';
+const DESCRIPTION = ANICE.metadataDescription;
 const PAGE_URL = 'https://anisharyal09.com.np/anice';
-const FEATURES = [
-  'Two-way file sharing',
-  'Control Mac from Android',
-  'Control Android from Mac',
-  'Now Playing controls',
-  'Clipboard and Quick Paste Tray',
-  'Android SMS on Mac',
-  'Find Device',
-  'QR pairing with P-256 ECDH, a 256-bit PSK and SHA-256 fingerprint commitment',
-  'Six-digit OPAQUE PIN pairing with Argon2id',
-  'RFC 9528 EDHOC session handshake',
-  'ChaCha20-Poly1305 handshake protection and AES-256-GCM application records',
-  'SwiftUI macOS app and Kotlin Android app',
-  'Rust OPAQUE PAKE bridge for six-digit PIN pairing',
-  'Objective-C adapter for Mac Classic Bluetooth HID control',
-];
 
 const implementation = [
-  ['macOS', 'SwiftUI · AppKit'],
-  ['Android', 'Kotlin · Jetpack Compose'],
+  ['macOS', 'Swift 6 · SwiftUI · AppKit'],
+  ['Android', 'Kotlin · Jetpack Compose · Material 3'],
   ['PIN pairing', 'Rust · OPAQUE PAKE bridge'],
   ['Mac keyboard & trackpad', 'Objective-C · Classic Bluetooth HID'],
 ];
 
-const featureGroups = [
-  {
-    title: 'Control',
-    features: [
-      { icon: <Smartphone size={16} />, title: 'Control Mac', text: 'Type with your Android keyboard and use the phone’s screen as a trackpad to move, click and scroll on Mac.' },
-      { icon: <Monitor size={16} />, title: 'Control Android', text: 'Use the Mac keyboard and trackpad with a paired Android phone.' },
-      { icon: <Music2 size={16} />, title: 'Now Playing', text: 'Control supported Mac playback from Android.' },
-    ],
-  },
-  {
-    title: 'Share',
-    features: [
-      { icon: <Files size={16} />, title: 'File transfer', text: 'Send files seamlessly between Mac and Android in either direction.' },
-      { icon: <Clipboard size={16} />, title: 'Clipboard and Quick Paste', text: 'Share text and links, with optional local history and a searchable Mac tray.' },
-    ],
-  },
-  {
-    title: 'Messages and devices',
-    features: [
-      { icon: <MessageSquare size={16} />, title: 'SMS on Mac', text: 'Get Android message notifications and reply from Mac.' },
-      { icon: <Bell size={16} />, title: 'Find Device', text: 'Send a local alert to a paired device. No location access.' },
-    ],
-  },
-];
+const FEATURE_ICONS = {
+  files: Files,
+  clipboard: Clipboard,
+  monitor: Monitor,
+  smartphone: Smartphone,
+  keyboard: Keyboard,
+  gauge: Gauge,
+  bell: Bell,
+  messages: MessageSquare,
+  music: Music2,
+  moon: Moon,
+};
 
 const privacyDetails = [
   ['QR pairing', 'Ephemeral P-256 ECDH, a 256-bit PSK and a SHA-256 fingerprint commitment. Both devices approve the link.'],
@@ -61,7 +33,8 @@ const privacyDetails = [
   ['Device identity', 'Paired P-256 identities are pinned and verified during session setup.'],
   ['Session handshake', 'RFC 9528 EDHOC, method 0 / suite 5, authenticates each session.'],
   ['Encryption', 'EDHOC suite 5 uses ChaCha20-Poly1305; application records use directional AES-256-GCM.'],
-  ['Transport & privacy', 'Bluetooth LE or optional direct LAN. No cloud accounts, external relays or telemetry.'],
+  ['Transport & privacy', 'Bluetooth LE or direct LAN; Mac-to-Android input uses system Bluetooth HID. No accounts, cloud relays, analytics or telemetry. Update checks contact GitHub Releases directly.'],
+  ['Key storage', 'Android Keystore and the macOS Login Keychain store device identities. Current Mac builds do not claim Secure Enclave isolation.'],
 ];
 
 function AniCeMetadata() {
@@ -107,11 +80,14 @@ function AniCeMetadata() {
       '@type': 'SoftwareApplication',
       name: 'aniCe',
       description: DESCRIPTION,
-      url: PAGE_URL,
+      url: ANICE.website,
       applicationCategory: 'UtilitiesApplication',
       operatingSystem: 'macOS, Android',
-      featureList: FEATURES,
-      codeRepository: REPOSITORY,
+      softwareVersion: ANICE.version,
+      isAccessibleForFree: true,
+      downloadUrl: ANICE.releases,
+      featureList: ANICE_SCHEMA_FEATURES,
+      codeRepository: ANICE.repository,
       license: 'https://www.gnu.org/licenses/gpl-3.0.html',
       creator: { '@type': 'Person', name: 'Anish Aryal' },
     };
@@ -152,15 +128,19 @@ export default function AniCePage() {
             <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
               <span className="font-mono text-xl font-semibold tracking-tight text-white">ani<span className="text-electric">Ce</span></span>
               <span className="font-mono text-xs text-gray-400">macOS <span className="text-electric">↔</span> Android</span>
+              <span className="rounded-full border border-electric/30 bg-electric/5 px-2.5 py-1 text-[10px] font-mono text-electric">{ANICE.status}</span>
             </div>
             <h1 id="anice-title" className="mt-4 text-3xl sm:text-4xl font-bold tracking-tight text-white">
               Mac and Android, connected.
             </h1>
             <p className="mt-4 max-w-2xl text-sm sm:text-base leading-relaxed text-gray-300">
-              aniCe brings file sharing, device control, playback, clipboard, SMS and device alerts to one paired connection.
+              {ANICE.description} Free and open source.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <a href={REPOSITORY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-electric px-4 py-2.5 text-xs font-mono font-semibold text-black transition-colors hover:bg-electric/90">
+              <a href={ANICE.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl bg-electric px-4 py-2.5 text-xs font-mono font-semibold text-black transition-colors hover:bg-electric/90">
+                Visit aniCe website <ArrowUpRight size={14} />
+              </a>
+              <a href={ANICE.repository} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
                 Source on GitHub <ArrowUpRight size={14} />
               </a>
               <a href="#anice-features" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
@@ -179,19 +159,22 @@ export default function AniCePage() {
             <h2 id="anice-features-title" className="text-2xl font-bold tracking-tight text-white">Features</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {featureGroups.map((group) => (
+            {ANICE_FEATURE_GROUPS.map((group) => (
               <section key={group.title} className="glass-panel rounded-2xl p-5 sm:p-6" aria-label={group.title}>
                 <h3 className="font-mono text-xs uppercase tracking-wider text-electric">{group.title}</h3>
                 <div className="mt-3 divide-y divide-white/10">
-                  {group.features.map((feature) => (
-                    <article key={feature.title} className="py-4 first:pt-2 last:pb-1">
-                      <h4 className="flex items-center gap-2 text-sm font-semibold text-white">
-                        <span className="text-electric" aria-hidden="true">{feature.icon}</span>
-                        {feature.title}
-                      </h4>
-                      <p className="mt-1.5 text-xs leading-relaxed text-gray-400">{feature.text}</p>
-                    </article>
-                  ))}
+                  {group.features.map((feature) => {
+                    const Icon = FEATURE_ICONS[feature.icon];
+                    return (
+                      <article key={feature.name} className="py-4 first:pt-2 last:pb-1">
+                        <h4 className="flex items-center gap-2 text-sm font-semibold text-white">
+                          <Icon size={16} className="flex-shrink-0 text-electric" aria-hidden="true" />
+                          {feature.name}
+                        </h4>
+                        <p className="mt-1.5 text-xs leading-relaxed text-gray-400">{feature.desc}</p>
+                      </article>
+                    );
+                  })}
                 </div>
               </section>
             ))}
@@ -210,6 +193,38 @@ export default function AniCePage() {
           </dl>
         </section>
 
+        <section className="mt-10 glass-panel rounded-2xl p-5 sm:p-7" aria-labelledby="anice-download-title">
+          <h2 id="anice-download-title" className="text-lg font-bold text-white">Get aniCe</h2>
+          <p className="mt-3 text-xs font-mono text-electric">{ANICE.status} · v{ANICE.version}</p>
+          <p className="mt-2 text-sm leading-relaxed text-gray-400">{ANICE.releaseNote}</p>
+          <dl className="mt-5 grid gap-4 sm:grid-cols-2">
+            <div>
+              <dt className="text-xs font-mono text-gray-300">Mac</dt>
+              <dd className="mt-1 text-xs leading-relaxed text-gray-400">{ANICE.requirements.mac}</dd>
+            </div>
+            <div>
+              <dt className="text-xs font-mono text-gray-300">Android</dt>
+              <dd className="mt-1 text-xs leading-relaxed text-gray-400">{ANICE.requirements.android}</dd>
+            </div>
+          </dl>
+          <p className="mt-5 text-xs text-gray-400">Install on Mac with Homebrew:</p>
+          <code className="mt-2 block break-all rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-xs text-gray-200">
+            brew install anisharyal09/tap/anice
+          </code>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <a href={ANICE.releases} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-electric/30 px-4 py-2.5 text-xs font-mono text-electric transition-colors hover:border-electric hover:text-white">
+              <Download size={14} /> Download beta builds
+            </a>
+            <a href={ANICE.installGuide} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
+              Installation & permissions <ArrowUpRight size={14} />
+            </a>
+            <a href={ANICE.preview} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-xs font-mono text-gray-200 transition-colors hover:border-electric/40 hover:text-electric">
+              Browser preview <ArrowUpRight size={14} />
+            </a>
+          </div>
+          <p className="mt-3 text-xs leading-relaxed text-gray-500">The browser preview uses sample data. Native file sharing and device controls require the installed apps.</p>
+        </section>
+
         <section className="mt-8 grid grid-cols-2 gap-x-4 gap-y-4 border-t border-white/10 pt-5 sm:grid-cols-4" aria-label="Implementation stack">
           {implementation.map(([platform, tools]) => (
             <div key={platform}>
@@ -221,9 +236,17 @@ export default function AniCePage() {
 
         <footer className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 border-t border-white/10 pt-5 text-xs text-gray-500">
           <span>macOS · SwiftUI <span className="px-1 text-electric">/</span> Android · Kotlin</span>
-          <a href={REPOSITORY} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-mono text-gray-400 hover:text-electric transition-colors">
-            GitHub <ArrowUpRight size={13} />
-          </a>
+          <div className="flex flex-wrap gap-4">
+            <Link to={ANICE.support} className="inline-flex items-center gap-1.5 font-mono text-gray-400 hover:text-electric transition-colors">
+              Support aniCe <ArrowRight size={13} />
+            </Link>
+            <a href={ANICE.website} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-mono text-gray-400 hover:text-electric transition-colors">
+              aniCe website <ArrowUpRight size={13} />
+            </a>
+            <a href={ANICE.repository} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 font-mono text-gray-400 hover:text-electric transition-colors">
+              GitHub <ArrowUpRight size={13} />
+            </a>
+          </div>
         </footer>
       </div>
     </div>

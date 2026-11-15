@@ -9,6 +9,7 @@ import notebookCompanionIcon from '../src/assets/notebook-companion-icon.png';
 import opacifyIcon from '../src/assets/opacify-icon.png';
 import ytAudioAirIcon from '../src/assets/yt-audio-air-icon.png';
 import ytVideoAirIcon from '../src/assets/yt-video-air-icon.png';
+import { ANICE, ANICE_DETAILS } from '../src/data/anice.js';
 
 const ChromeLogo = () => (
   <svg className="w-4 h-4 flex-shrink-0" viewBox="0 0 24 24" fill="currentColor">
@@ -28,26 +29,18 @@ const creationCategories = [
     icon: <ArrowLeftRight className="text-electric" size={20} />,
     items: [
       {
-        name: 'aniCe',
+        name: ANICE.name,
         featured: true,
         badge: 'macOS + Android',
-        page: '/anice',
-        desc: 'A local-first companion for file sharing and device control between Mac and Android.',
-        tech: ['Swift 6', 'Kotlin', 'Bluetooth LE', 'Direct LAN'],
-        github: 'https://github.com/anisharyal09/aniCe',
-        details: {
-          tagline: 'Connect a Mac and Android phone for sharing, control and everyday continuity.',
-          features: [
-            { name: 'Two-way file sharing', desc: 'Send files between Mac and Android, with receiver approval and resumable transfers.' },
-            { name: 'Control Mac from Android', desc: 'Use the phone keyboard and trackpad to type, click and scroll on the Mac.' },
-            { name: 'Control Android from Mac', desc: 'Use the Mac keyboard and trackpad with a paired Android phone.' },
-            { name: 'Now Playing', desc: 'Control supported Mac playback from Android.' },
-            { name: 'Clipboard and Quick Paste', desc: 'Share text and links, with optional local clipboard history and a searchable Mac tray.' },
-            { name: 'SMS on Mac', desc: 'Receive Android message notifications and reply from the Mac.' },
-            { name: 'Find Device', desc: 'Send a local alert to a paired phone or Mac; no location access is used.' },
-            { name: 'Private connections', desc: 'Pairing-approved, encrypted Bluetooth LE sessions with optional direct LAN; no cloud accounts or telemetry.' },
-          ],
-        },
+        page: ANICE.page,
+        website: ANICE.website,
+        status: `${ANICE.status} · v${ANICE.version}`,
+        desc: ANICE.description,
+        tech: ANICE.tech,
+        github: ANICE.repository,
+        download: ANICE.releases,
+        downloadLabel: 'Download beta builds',
+        details: ANICE_DETAILS,
       },
     ],
   },
@@ -321,7 +314,7 @@ export default function Creations() {
                               target="_blank"
                               rel="noopener noreferrer"
                               className="p-2 rounded-xl bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white transition-colors"
-                              title="Releases / Downloads"
+                              title={item.downloadLabel || 'Releases / Downloads'}
                             >
                               <Download size={16} />
                             </a>
@@ -365,6 +358,9 @@ export default function Creations() {
                       <p className="text-gray-400 font-light text-xs leading-relaxed mb-4">
                         {item.desc}
                       </p>
+                      {item.status && (
+                        <p className="text-xs font-mono text-electric mb-4">{item.status}</p>
+                      )}
                     </div>
 
                     <div>
@@ -376,7 +372,7 @@ export default function Creations() {
                         ))}
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t border-white/10">
+                      <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-white/10">
                         <button
                           onClick={() => setSelectedItem(item)}
                           className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white border border-electric/30 hover:border-electric px-3 py-1.5 rounded-xl transition-all duration-200 cursor-pointer"
@@ -384,12 +380,21 @@ export default function Creations() {
                           Details & Features
                           <ArrowRight size={12} />
                         </button>
-                        {item.page && (
+                        {item.website ? (
+                          <a
+                            href={item.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white transition-colors"
+                          >
+                            Visit website <ExternalLink size={12} />
+                          </a>
+                        ) : item.page && (
                           <Link
                             to={item.page}
                             className="flex items-center gap-2 text-xs font-mono text-electric hover:text-white transition-colors"
                           >
-                            Explore aniCe
+                            Explore {item.name}
                             <ArrowRight size={12} />
                           </Link>
                         )}
@@ -454,14 +459,27 @@ function CreationModal({ item, onClose }) {
         <p className="text-gray-300 text-sm font-light leading-relaxed mb-5">
           {item.details?.tagline || item.desc}
         </p>
+        {item.status && (
+          <p className="text-xs font-mono text-electric mb-5">{item.status}</p>
+        )}
 
         <div className="flex flex-wrap items-center gap-2 mb-6">
+          {item.website && (
+            <a
+              href={item.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 px-3.5 py-2 text-xs font-mono bg-white/5 hover:bg-white/10 text-gray-200 rounded-xl border border-white/10 transition-colors"
+            >
+              <ExternalLink size={14} /> Visit website
+            </a>
+          )}
           {item.page && (
             <Link
               to={item.page}
               className="flex items-center gap-2 px-3.5 py-2 text-xs font-mono bg-white/5 hover:bg-white/10 text-gray-200 rounded-xl border border-white/10 transition-colors"
             >
-              Explore aniCe <ArrowRight size={14} />
+              Portfolio overview <ArrowRight size={14} />
             </Link>
           )}
           {item.download && (
@@ -471,7 +489,7 @@ function CreationModal({ item, onClose }) {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-3.5 py-2 text-xs font-mono bg-white/5 hover:bg-white/10 text-gray-200 rounded-xl border border-white/10 transition-colors"
             >
-              <Download size={14} /> Releases / Downloads
+              <Download size={14} /> {item.downloadLabel || 'Releases / Downloads'}
             </a>
           )}
           {item.chrome && (

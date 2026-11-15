@@ -25,6 +25,7 @@ A clean, modern personal portfolio built with **React**, **Vite**, **Tailwind CS
 
 #### 💻 Projects
 - Card-based showcase for highlighted projects with detail preview popups.
+- **aniCe:** Native, local-first Mac + Android continuity for file sharing, clipboard sync, device control, notifications, SMS, and playback. Links to the [GitHub Pages website](https://anisharyal09.github.io/web-anice/), [beta downloads](https://github.com/anisharyal09/aniCe/releases), and [portfolio overview](https://anisharyal09.com.np/anice).
 
 #### 🎓 Education
 - Collapsible section for academic info to keep things tidy (just to make it less explicit).
